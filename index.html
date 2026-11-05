@@ -472,27 +472,6 @@
         .btn-clear:hover {
             background: #b71c1c;
         }
-        .btn-fuel-export {
-            background: #4F46E5;
-            color: #fff;
-        }
-        .btn-fuel-export:hover {
-            background: #4338CA;
-        }
-        .btn-fuel-import {
-            background: #FF6F00;
-            color: #fff;
-        }
-        .btn-fuel-import:hover {
-            background: #e65c00;
-        }
-        .btn-fuel-clear {
-            background: #d32f2f;
-            color: #fff;
-        }
-        .btn-fuel-clear:hover {
-            background: #b71c1c;
-        }
 
         .results-card {
             display: none;
@@ -855,28 +834,6 @@
             transform: scale(1.08);
         }
 
-        .btn-bike-export {
-            background: var(--tab4-color);
-            color: #fff;
-        }
-        .btn-bike-export:hover {
-            background: #0B7C72;
-        }
-        .btn-bike-import {
-            background: #FF6F00;
-            color: #fff;
-        }
-        .btn-bike-import:hover {
-            background: #e65c00;
-        }
-        .btn-bike-clear {
-            background: #d32f2f;
-            color: #fff;
-        }
-        .btn-bike-clear:hover {
-            background: #b71c1c;
-        }
-
         .notes-list {
             display: flex;
             flex-direction: column;
@@ -1022,10 +979,18 @@
             padding: 4px 0;
         }
 
-        /* ⭐ NEW: Master Clear Button */
-        .master-clear-section {
-            padding: 10px 0 4px;
-            margin-top: 4px;
+        /* ⭐ Master controls section */
+        .master-card {
+            border-left: 5px solid #DC2626;
+            background: linear-gradient(135deg, #FFFFFF 0%, #FEF7F7 100%);
+        }
+        .master-card .card-header .card-icon {
+            background: #FEE2E2;
+            color: #DC2626;
+        }
+        .master-card .card-header .badge {
+            background: #FEE2E2;
+            color: #991B1B;
         }
         .btn-master-clear {
             width: 100%;
@@ -1039,6 +1004,7 @@
             letter-spacing: 0.3px;
             border: 2px solid #7F1D1D;
             transition: var(--transition);
+            margin-top: 12px;
         }
         .btn-master-clear:hover {
             background: linear-gradient(135deg, #B91C1C 0%, #991B1B 50%, #7F1D1D 100%);
@@ -1085,7 +1051,7 @@
         }
 
         /* ============================================================
-                   RESPONSIVE — MOBILE FIX
+                   RESPONSIVE
                    ============================================================ */
         @media (max-width: 480px) {
             .app-container {
@@ -1119,9 +1085,8 @@
             .form-row {
                 gap: 8px;
             }
-            /* ⭐ KEY FIX: fields side-by-side on mobile instead of 100% width */
             .form-group {
-                min-width: 100px;      /* was: 100% */
+                min-width: 100px;
                 margin-bottom: 6px;
             }
             .form-group.full-width {
@@ -1375,17 +1340,15 @@
                 </div>
             </div>
 
+            <!-- Sirf Clear button (Backup/Restore hataya) -->
             <div class="card">
                 <div class="card-header">
-                    <div class="card-icon" style="background:#FFF3E0;color:#FF6F00;"><i class="fas fa-archive"></i></div>
-                    <h3>💾 Backup &amp; Restore</h3>
+                    <div class="card-icon" style="background:#FFF3E0;color:#FF6F00;"><i class="fas fa-eraser"></i></div>
+                    <h3>🧹 Clear Records</h3>
                 </div>
-                <div class="btn-group">
-                    <button onclick="exportKMJSON()" class="btn btn-sm btn-export"><i class="fas fa-download"></i> Export</button>
-                    <button onclick="importKMJSON()" class="btn btn-sm btn-import"><i class="fas fa-upload"></i> Restore</button>
-                    <button onclick="clearAllKM()" class="btn btn-sm btn-clear"><i class="fas fa-trash"></i> Clear All</button>
-                </div>
-                <input type="file" id="kmFileInput" accept=".json" hidden>
+                <button onclick="clearAllKM()" class="btn btn-sm btn-clear" style="width:100%;">
+                    <i class="fas fa-trash"></i> Clear All KM Records
+                </button>
             </div>
         </div>
 
@@ -1492,17 +1455,15 @@
                 </div>
             </div>
 
+            <!-- Sirf Clear button -->
             <div class="card">
                 <div class="card-header">
-                    <div class="card-icon" style="background:#EDE7F6;color:#5E35B1;"><i class="fas fa-archive"></i></div>
-                    <h3>💾 Backup &amp; Restore</h3>
+                    <div class="card-icon" style="background:#EDE7F6;color:#5E35B1;"><i class="fas fa-eraser"></i></div>
+                    <h3>🧹 Clear Records</h3>
                 </div>
-                <div class="btn-group">
-                    <button onclick="exportFuelJSON()" class="btn btn-sm btn-fuel-export"><i class="fas fa-download"></i> Export</button>
-                    <button onclick="importFuelJSON()" class="btn btn-sm btn-fuel-import"><i class="fas fa-upload"></i> Restore</button>
-                    <button onclick="clearAllFuel()" class="btn btn-sm btn-fuel-clear"><i class="fas fa-trash"></i> Clear All</button>
-                </div>
-                <input type="file" id="fuelFileInput" accept=".json" hidden>
+                <button onclick="clearAllFuel()" class="btn btn-sm btn-clear" style="width:100%;">
+                    <i class="fas fa-trash"></i> Clear All Fuel Records
+                </button>
             </div>
 
             <div class="fuel-info-note" style="border-color:rgba(79,70,229,0.2);background:#F8F7FF;">
@@ -1582,17 +1543,15 @@
                 <div class="notes-list" id="notesList"></div>
             </div>
 
+            <!-- Sirf Clear button -->
             <div class="card">
                 <div class="card-header">
-                    <div class="card-icon" style="background:#E0F2F1;color:#0D9488;"><i class="fas fa-archive"></i></div>
-                    <h3>💾 Backup &amp; Restore</h3>
+                    <div class="card-icon" style="background:#E0F2F1;color:#0D9488;"><i class="fas fa-eraser"></i></div>
+                    <h3>🧹 Clear Records</h3>
                 </div>
-                <div class="btn-group">
-                    <button onclick="exportBikeJSON()" class="btn btn-sm btn-bike-export"><i class="fas fa-download"></i> Export</button>
-                    <button onclick="importBikeJSON()" class="btn btn-sm btn-bike-import"><i class="fas fa-upload"></i> Restore</button>
-                    <button onclick="clearAllBike()" class="btn btn-sm btn-bike-clear"><i class="fas fa-trash"></i> Clear All</button>
-                </div>
-                <input type="file" id="bikeFileInput" accept=".json" hidden>
+                <button onclick="clearAllBike()" class="btn btn-sm btn-bike-clear" style="width:100%;background:#d32f2f;">
+                    <i class="fas fa-trash"></i> Clear All Bike Info
+                </button>
             </div>
 
             <div class="fuel-info-note" style="border-color:#CCF3EE;background:#F5FDFC;">
@@ -1601,10 +1560,20 @@
             </div>
         </div>
 
-        <!-- ⭐ NEW: MASTER CLEAR BUTTON (always visible) -->
-        <div class="master-clear-section">
+        <!-- ⭐ MASTER CONTROLS — Backup All / Restore All / Master Clear -->
+        <div class="card master-card">
+            <div class="card-header">
+                <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>🔧 Master Controls</h3>
+                <span class="badge">All Data</span>
+            </div>
+            <div class="btn-group">
+                <button onclick="exportAllJSON()" class="btn btn-sm btn-export"><i class="fas fa-download"></i> Backup All</button>
+                <button onclick="importAllJSON()" class="btn btn-sm btn-import"><i class="fas fa-upload"></i> Restore All</button>
+            </div>
+            <input type="file" id="allFileInput" accept=".json" hidden>
             <button class="btn btn-master-clear" onclick="masterClear()">
-                <i class="fas fa-bomb"></i> Master Clear • Poora Data Delete
+                <i class="fas fa-bomb"></i> Master Clear
             </button>
         </div>
 
@@ -2008,37 +1977,6 @@
                 showToast('🗑️ Record deleted');
             };
 
-            window.exportKMJSON = function() {
-                const blob = new Blob([JSON.stringify(kmRecords, null, 2)], { type: 'application/json' });
-                const a = document.createElement('a');
-                a.href = URL.createObjectURL(blob);
-                a.download = `bike-km-backup-${new Date().toISOString().split('T')[0]}.json`;
-                a.click();
-                URL.revokeObjectURL(a.href);
-                showToast('📤 Export done!');
-            };
-
-            window.importKMJSON = function() {
-                document.getElementById('kmFileInput').click();
-                document.getElementById('kmFileInput').onchange = function(e) {
-                    const file = e.target.files[0];
-                    if (!file) return;
-                    const reader = new FileReader();
-                    reader.onload = function(ev) {
-                        try {
-                            const data = JSON.parse(ev.target.result);
-                            if (Array.isArray(data)) { kmRecords = data;
-                                saveKM();
-                                renderKM();
-                                resetKMForm();
-                                showToast('✅ Data restored!'); } else { alert('Invalid JSON format!'); }
-                        } catch { alert('File parse nahi ho saki!'); }
-                    };
-                    reader.readAsText(file);
-                    this.value = '';
-                };
-            };
-
             window.clearAllKM = function() {
                 if (kmRecords.length === 0) { alert('Koi record mojood nahi hai!'); return; }
                 if (!confirm('Kya aap waqai saare records delete karna chahte hain? Ye action undo nahi ho sakta.')) return;
@@ -2225,37 +2163,6 @@
                 saveFuelRecords();
                 renderFuel();
                 showToast('🗑️ Fuel record deleted');
-            };
-
-            window.exportFuelJSON = function() {
-                const blob = new Blob([JSON.stringify(fuelRecords, null, 2)], { type: 'application/json' });
-                const a = document.createElement('a');
-                a.href = URL.createObjectURL(blob);
-                a.download = `fuel-records-backup-${new Date().toISOString().split('T')[0]}.json`;
-                a.click();
-                URL.revokeObjectURL(a.href);
-                showToast('📤 Fuel export done!');
-            };
-
-            window.importFuelJSON = function() {
-                document.getElementById('fuelFileInput').click();
-                document.getElementById('fuelFileInput').onchange = function(e) {
-                    const file = e.target.files[0];
-                    if (!file) return;
-                    const reader = new FileReader();
-                    reader.onload = function(ev) {
-                        try {
-                            const data = JSON.parse(ev.target.result);
-                            if (Array.isArray(data)) { fuelRecords = data;
-                                saveFuelRecords();
-                                renderFuel();
-                                resetFuelForm();
-                                showToast('✅ Fuel data restored!'); } else { alert('Invalid JSON format!'); }
-                        } catch { alert('File parse nahi ho saki!'); }
-                    };
-                    reader.readAsText(file);
-                    this.value = '';
-                };
             };
 
             window.clearAllFuel = function() {
@@ -2470,57 +2377,6 @@
                 showToast('🗑️ Note deleted');
             };
 
-            window.exportBikeJSON = function() {
-                const data = { oilRecords: oilRecords, notes: bikeNotes };
-                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-                const a = document.createElement('a');
-                a.href = URL.createObjectURL(blob);
-                a.download = `bike-info-backup-${new Date().toISOString().split('T')[0]}.json`;
-                a.click();
-                URL.revokeObjectURL(a.href);
-                showToast('📤 Bike info export done!');
-            };
-
-            window.importBikeJSON = function() {
-                const inp = document.getElementById('bikeFileInput');
-                inp.click();
-                inp.onchange = function(e) {
-                    const file = e.target.files[0];
-                    if (!file) return;
-                    const reader = new FileReader();
-                    reader.onload = function(ev) {
-                        try {
-                            const data = JSON.parse(ev.target.result);
-                            if (Array.isArray(data)) {
-                                oilRecords = data;
-                            } else if (data && typeof data === 'object') {
-                                if (Array.isArray(data.oilRecords)) oilRecords = data.oilRecords;
-                                if (Array.isArray(data.notes)) bikeNotes = data.notes;
-                            } else {
-                                alert('Invalid JSON format!');
-                                return;
-                            }
-                            oilRecords = oilRecords.map(rec => {
-                                if (rec.start === undefined && rec.km !== undefined) {
-                                    const k = Number(rec.km);
-                                    return { date: rec.date, start: k, end: k, note: rec.note || '' };
-                                }
-                                return rec;
-                            });
-                            saveOil();
-                            saveNotes();
-                            renderOil();
-                            resetNoteForm();
-                            renderNotes();
-                            resetOilForm();
-                            showToast('✅ Bike info restored!');
-                        } catch { alert('File parse nahi ho saki!'); }
-                    };
-                    reader.readAsText(file);
-                    this.value = '';
-                };
-            };
-
             window.clearAllBike = function() {
                 if (oilRecords.length === 0 && bikeNotes.length === 0) { alert('Koi bike data mojood nahi hai!'); return; }
                 if (!confirm('Kya aap waqai saare oil change records aur notes delete karna chahte hain? Ye action undo nahi ho sakta.')) return;
@@ -2536,13 +2392,123 @@
             };
 
             // ─────────────────────────────────────────────
-            //  ⭐ MASTER CLEAR — sab kuch ek sath
+            //  ⭐ MASTER BACKUP (sab kuch ek JSON mein)
+            // ─────────────────────────────────────────────
+            window.exportAllJSON = function() {
+                const data = {
+                    app: 'Bike Tools',
+                    version: '3.0',
+                    exportedAt: new Date().toISOString(),
+                    profitSettings: {
+                        bikeAverage: localStorage.getItem(RIDE_KEYS.bikeAvg) || '',
+                        petrolPrice: localStorage.getItem(RIDE_KEYS.petrol) || '',
+                        commissionRate: localStorage.getItem(RIDE_KEYS.commission) || '11'
+                    },
+                    kmRecords: kmRecords,
+                    fuelRecords: fuelRecords,
+                    oilRecords: oilRecords,
+                    bikeNotes: bikeNotes
+                };
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = `bike-tools-full-backup-${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                URL.revokeObjectURL(a.href);
+                showToast('📤 Full backup downloaded!');
+            };
+
+            // ─────────────────────────────────────────────
+            //  ⭐ MASTER RESTORE (sab kuch ek JSON se)
+            // ─────────────────────────────────────────────
+            window.importAllJSON = function() {
+                const inp = document.getElementById('allFileInput');
+                inp.click();
+                inp.onchange = function(e) {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = function(ev) {
+                        try {
+                            const data = JSON.parse(ev.target.result);
+                            if (!data || typeof data !== 'object') { alert('Invalid JSON format!'); return; }
+
+                            if (!confirm('⚠️ Restore All\n\nKya aap WAQAI poora data restore karna chahte hain?\n\nMojooda sab data (profit settings, KM, fuel, oil, notes) is backup se replace ho jayega.')) return;
+
+                            // Profit settings
+                            if (data.profitSettings) {
+                                if (data.profitSettings.bikeAverage !== undefined && data.profitSettings.bikeAverage !== '') {
+                                    localStorage.setItem(RIDE_KEYS.bikeAvg, data.profitSettings.bikeAverage);
+                                }
+                                if (data.profitSettings.petrolPrice !== undefined && data.profitSettings.petrolPrice !== '') {
+                                    localStorage.setItem(RIDE_KEYS.petrol, data.profitSettings.petrolPrice);
+                                }
+                                if (data.profitSettings.commissionRate !== undefined && data.profitSettings.commissionRate !== '') {
+                                    localStorage.setItem(RIDE_KEYS.commission, data.profitSettings.commissionRate);
+                                }
+                            }
+
+                            // KM records
+                            if (Array.isArray(data.kmRecords)) {
+                                kmRecords = data.kmRecords;
+                                saveKM();
+                            }
+
+                            // Fuel records
+                            if (Array.isArray(data.fuelRecords)) {
+                                fuelRecords = data.fuelRecords;
+                                saveFuelRecords();
+                            }
+
+                            // Oil records (purana format migrate)
+                            if (Array.isArray(data.oilRecords)) {
+                                oilRecords = data.oilRecords.map(rec => {
+                                    if (rec.start === undefined && rec.km !== undefined) {
+                                        const k = Number(rec.km);
+                                        return { date: rec.date, start: k, end: k, note: rec.note || '' };
+                                    }
+                                    return rec;
+                                });
+                                saveOil();
+                            }
+
+                            // Notes
+                            if (Array.isArray(data.bikeNotes)) {
+                                bikeNotes = data.bikeNotes;
+                                saveNotes();
+                            }
+
+                            // Reload UI everywhere
+                            loadRideSettings();
+                            fuelAvg.value = localStorage.getItem(RIDE_KEYS.bikeAvg) || '';
+                            fuelPrice.value = localStorage.getItem(RIDE_KEYS.petrol) || '';
+                            resetKMForm();
+                            resetFuelForm();
+                            resetOilForm();
+                            resetNoteForm();
+                            renderKM();
+                            renderFuel();
+                            updateFuelLive();
+                            renderOil();
+                            renderNotes();
+
+                            showToast('✅ Full backup restored!');
+                        } catch (err) {
+                            alert('File parse nahi ho saki!');
+                        }
+                    };
+                    reader.readAsText(file);
+                    this.value = '';
+                };
+            };
+
+            // ─────────────────────────────────────────────
+            //  ⭐ MASTER CLEAR (sab kuch delete)
             // ─────────────────────────────────────────────
             window.masterClear = function() {
                 if (!confirm('⚠️ MASTER CLEAR\n\nKya aap WAQAI poora data delete karna chahte hain?\n\nYe SAB clear hoga:\n• Profit settings (avg, price, commission)\n• KM Track records\n• Fuel Range records\n• Oil Change records\n• Bike Notes\n\n⚠️ Ye action UNDO NAHI ho sakta!')) return;
                 if (!confirm('🚨 FINAL CONFIRMATION\n\nAakhri baar pooch rahe hain — SAB KUCH delete ho jayega.\n\nConfirm karein?')) return;
 
-                // 1) Clear localStorage keys
                 localStorage.removeItem(RIDE_KEYS.bikeAvg);
                 localStorage.removeItem(RIDE_KEYS.petrol);
                 localStorage.removeItem(RIDE_KEYS.commission);
@@ -2551,7 +2517,6 @@
                 localStorage.removeItem(BIKE_KEYS.oil);
                 localStorage.removeItem(BIKE_KEYS.notes);
 
-                // 2) Reset arrays + edit state
                 kmRecords = [];
                 fuelRecords = [];
                 oilRecords = [];
@@ -2561,7 +2526,6 @@
                 oilEditIndex = null;
                 noteEditIndex = null;
 
-                // 3) Reset Profit inputs
                 bikeAvgInput.value = '';
                 petrolPriceInput.value = '';
                 commissionInput.value = '11';
@@ -2581,24 +2545,20 @@
                     inp.style.backgroundColor = '';
                 });
 
-                // 4) Reset Fuel settings inputs (synced)
                 fuelAvg.value = '';
                 fuelPrice.value = '';
 
-                // 5) Reset all forms
                 resetKMForm();
                 resetFuelForm();
                 resetOilForm();
                 resetNoteForm();
 
-                // 6) Re-render everything
                 renderKM();
                 renderFuel();
                 updateFuelLive();
                 renderOil();
                 renderNotes();
 
-                // 7) Go back to first tab
                 switchTab('tab1');
 
                 showToast('🚨 Poora data clear ho gaya!');
