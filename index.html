@@ -1,0 +1,2575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Bike Tools • Ride Profit + KM Track + Fuel Range</title>
+    <meta name="description" content="All-in-one Bike Companion: Ride Profit Calculator, KM Tracking, Fuel Range Calculator" />
+    <meta name="theme-color" content="#FF5A1F" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Bike Tools" />
+
+    <!-- PWA Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
+    <link rel="manifest" href="manifest.json" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+    <style>
+        /* ============================================================
+                   ROOT & GLOBAL
+                   ============================================================ */
+        :root {
+            --primary: #FF5A1F;
+            --primary-dark: #E04E15;
+            --primary-light: #FFF1EB;
+            --primary-glow: rgba(255, 90, 31, 0.20);
+            --bg: #FFFAF7;
+            --bg-secondary: #FFF5F0;
+            --card-bg: #FFFFFF;
+            --text: #1A1A2E;
+            --text-secondary: #5A5A6E;
+            --text-light: #8B8B9E;
+            --border: #F0E4DE;
+            --success: #10B981;
+            --success-bg: #ECFDF5;
+            --success-border: #A7F3D0;
+            --danger: #EF4444;
+            --danger-bg: #FEF2F2;
+            --danger-border: #FECACA;
+            --warning: #F59E0B;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.05);
+            --radius-sm: 10px;
+            --radius: 16px;
+            --radius-lg: 20px;
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --font: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+
+            --tab1-color: #FF5A1F;
+            --tab1-bg: #FFF1EB;
+            --tab2-color: #00B956;
+            --tab2-bg: #E8F5E9;
+            --tab3-color: #4F46E5;
+            --tab3-bg: #EEF2FF;
+            --tab4-color: #0D9488;
+            --tab4-bg: #F0FDFA;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: var(--font);
+            background: linear-gradient(170deg, #FFF8F4 0%, #FFF3EC 25%, #FFFAF7 50%, #FFF5F0 75%, #FFF8F4 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 14px;
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(255, 90, 31, 0.03) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 60%, rgba(255, 140, 66, 0.03) 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 90%, rgba(255, 90, 31, 0.02) 0%, transparent 50%);
+        }
+
+        .app-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 640px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            padding-bottom: 20px;
+        }
+
+        /* ============================================================
+                   HEADER
+                   ============================================================ */
+        .app-header {
+            text-align: center;
+            padding: 16px 16px 4px;
+        }
+        .app-header .logo-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #FF5A1F 0%, #FF7B3D 50%, #FF5A1F 100%);
+            border-radius: 18px;
+            font-size: 28px;
+            color: #fff;
+            box-shadow: 0 8px 28px rgba(255, 90, 31, 0.30);
+            margin-bottom: 8px;
+        }
+        .app-header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.3px;
+            margin: 0;
+        }
+        .app-header .subtitle {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            font-weight: 500;
+        }
+
+        /* ============================================================
+                   TABS
+                   ============================================================ */
+        .tabs {
+            display: flex;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.70);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 6px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 4px;
+        }
+        .tab-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 8px;
+            border: none;
+            border-radius: var(--radius);
+            background: transparent;
+            font-family: var(--font);
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            white-space: nowrap;
+        }
+        .tab-btn i {
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        .tab-btn:hover {
+            background: rgba(0, 0, 0, 0.03);
+            color: var(--text);
+        }
+        .tab-btn.active {
+            background: #fff;
+            color: var(--text);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        }
+        .tab-btn.active i {
+            transform: scale(1.05);
+        }
+        .tab-btn[data-tab="tab1"].active {
+            color: var(--tab1-color);
+            box-shadow: 0 2px 12px rgba(255, 90, 31, 0.12);
+        }
+        .tab-btn[data-tab="tab2"].active {
+            color: var(--tab2-color);
+            box-shadow: 0 2px 12px rgba(0, 185, 86, 0.12);
+        }
+        .tab-btn[data-tab="tab3"].active {
+            color: var(--tab3-color);
+            box-shadow: 0 2px 12px rgba(79, 70, 229, 0.12);
+        }
+        .tab-btn[data-tab="tab4"].active {
+            color: var(--tab4-color);
+            box-shadow: 0 2px 12px rgba(13, 148, 136, 0.12);
+        }
+
+        /* ============================================================
+                   TAB CONTENT
+                   ============================================================ */
+        .tab-content {
+            display: none;
+            animation: fadeSlideIn 0.35s ease-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================================
+                   CARDS (shared)
+                   ============================================================ */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 18px 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .card-header .card-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+        .card-header h3 {
+            font-size: 1rem;
+            font-weight: 650;
+            color: var(--text);
+            letter-spacing: -0.2px;
+        }
+        .card-header .badge {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            margin-left: auto;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+        }
+
+        /* ============================================================
+                   FORM ELEMENTS
+                   ============================================================ */
+        .form-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .form-group {
+            flex: 1;
+            min-width: 130px;
+            margin-bottom: 8px;
+        }
+        .form-group.full-width {
+            flex: 1 1 100%;
+            min-width: 100%;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+            letter-spacing: 0.2px;
+            text-transform: uppercase;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            font-family: var(--font);
+            font-weight: 500;
+            color: var(--text);
+            background: #FAFAFB;
+            transition: var(--transition);
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 0 4px var(--primary-glow);
+        }
+        .form-group input::placeholder {
+            color: #C5C5D2;
+            font-weight: 400;
+            font-size: 0.9rem;
+        }
+        .input-with-icon {
+            position: relative;
+        }
+        .input-with-icon input {
+            padding-left: 40px;
+        }
+        .input-with-icon .input-icon {
+            position: absolute;
+            left: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 15px;
+            color: #B0B0C0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+        .input-with-icon input:focus~.input-icon,
+        .input-with-icon input:focus+.input-icon {
+            color: var(--primary);
+        }
+
+        /* ============================================================
+                   BUTTONS
+                   ============================================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: var(--font);
+            font-weight: 650;
+            font-size: 1rem;
+            padding: 14px 24px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            outline: none;
+            letter-spacing: 0.2px;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn-calculate {
+            width: 100%;
+            background: linear-gradient(135deg, #FF5A1F 0%, #FF6B2F 50%, #FF7B3D 100%);
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 16px 24px;
+            border-radius: var(--radius);
+            box-shadow: 0 6px 24px rgba(255, 90, 31, 0.30);
+            letter-spacing: 0.4px;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-calculate:hover {
+            box-shadow: 0 10px 32px rgba(255, 90, 31, 0.40);
+            transform: translateY(-1px);
+        }
+        .btn-calculate:active {
+            transform: scale(0.98) translateY(0);
+            box-shadow: 0 4px 16px rgba(255, 90, 31, 0.25);
+        }
+        .btn-calculate::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.20) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .btn-calculate:hover::after {
+            opacity: 1;
+        }
+
+        .btn-outline {
+            width: 100%;
+            background: #fff;
+            color: var(--danger);
+            border: 2px solid #FECACA;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 12px 20px;
+            border-radius: var(--radius);
+        }
+        .btn-outline:hover {
+            background: var(--danger-bg);
+            border-color: var(--danger);
+            box-shadow: 0 4px 16px rgba(239, 68, 68, 0.10);
+        }
+
+        .btn-sm {
+            padding: 8px 14px;
+            font-size: 0.8rem;
+            border-radius: 20px;
+        }
+        .btn-add {
+            background: var(--tab2-color);
+            color: #fff;
+            width: 100%;
+            margin-top: 4px;
+            box-shadow: 0 4px 14px rgba(0, 185, 86, 0.25);
+        }
+        .btn-add:hover {
+            background: #009944;
+            box-shadow: 0 6px 18px rgba(0, 185, 86, 0.35);
+        }
+        .btn-fuel-add {
+            background: var(--tab3-color);
+            color: #fff;
+            width: 100%;
+            margin-top: 4px;
+            box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25);
+        }
+        .btn-fuel-add:hover {
+            background: #4338CA;
+            box-shadow: 0 6px 18px rgba(79, 70, 229, 0.35);
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .btn-group .btn-sm {
+            flex: 1;
+            min-width: 100px;
+            text-align: center;
+        }
+        .btn-export {
+            background: #1b5e20;
+            color: #fff;
+        }
+        .btn-export:hover {
+            background: #14521a;
+        }
+        .btn-import {
+            background: #FF6F00;
+            color: #fff;
+        }
+        .btn-import:hover {
+            background: #e65c00;
+        }
+        .btn-clear {
+            background: #d32f2f;
+            color: #fff;
+        }
+        .btn-clear:hover {
+            background: #b71c1c;
+        }
+        .btn-fuel-export {
+            background: #4F46E5;
+            color: #fff;
+        }
+        .btn-fuel-export:hover {
+            background: #4338CA;
+        }
+        .btn-fuel-import {
+            background: #FF6F00;
+            color: #fff;
+        }
+        .btn-fuel-import:hover {
+            background: #e65c00;
+        }
+        .btn-fuel-clear {
+            background: #d32f2f;
+            color: #fff;
+        }
+        .btn-fuel-clear:hover {
+            background: #b71c1c;
+        }
+
+        /* ============================================================
+                   RESULTS CARD (Ride Profit)
+                   ============================================================ */
+        .results-card {
+            display: none;
+            overflow: hidden;
+            animation: fadeSlideIn 0.4s ease-out;
+        }
+        .results-card.show {
+            display: block;
+        }
+        .results-card.profit {
+            border-left: 5px solid var(--success);
+            background: linear-gradient(135deg, #ffffff 0%, #fafffe 100%);
+        }
+        .results-card.loss {
+            border-left: 5px solid var(--danger);
+            background: linear-gradient(135deg, #ffffff 0%, #fffafa 100%);
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed #f0f0f0;
+        }
+        .result-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .result-row .result-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .result-row .result-label i {
+            width: 20px;
+            text-align: center;
+            font-size: 13px;
+        }
+        .result-row .result-value {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text);
+        }
+        .result-row .result-value.negative {
+            color: var(--danger);
+        }
+        .result-row .result-value.positive {
+            color: var(--success);
+        }
+
+        .result-row.net-profit-highlight {
+            background: #FFFDFB;
+            border: 2px solid #FDE8D0;
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+            margin: 8px 0;
+            border-bottom: 2px solid #FDE8D0;
+        }
+        .result-row.net-profit-highlight .result-label {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .result-row.net-profit-highlight .result-value {
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+        .results-card.profit .result-row.net-profit-highlight {
+            background: #f9fefb;
+            border-color: #A7F3D0;
+        }
+        .results-card.loss .result-row.net-profit-highlight {
+            background: #fffcfc;
+            border-color: #FECACA;
+        }
+
+        .result-row.per-km-row .result-label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        .result-row.per-km-row .result-value {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .result-verdict {
+            text-align: center;
+            padding: 14px 16px;
+            margin-top: 10px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 1.05rem;
+            letter-spacing: 0.3px;
+        }
+        .result-verdict.profit-verdict {
+            background: var(--success-bg);
+            color: #065F46;
+            border: 2px solid var(--success-border);
+        }
+        .result-verdict.loss-verdict {
+            background: var(--danger-bg);
+            color: #991B1B;
+            border: 2px solid var(--danger-border);
+        }
+        .result-verdict .verdict-emoji {
+            font-size: 1.6rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* ============================================================
+                   TABLE (KM Tracking & Fuel & Oil)
+                   ============================================================ */
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: var(--radius-sm);
+            margin-top: 2px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        table thead th {
+            background: var(--tab2-color);
+            color: #fff;
+            padding: 12px 8px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            text-align: center;
+        }
+        table tbody td {
+            padding: 10px 8px;
+            text-align: center;
+            border-bottom: 1px solid #e0f2e9;
+            color: #333;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+        table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        table tbody tr:hover td {
+            background: #f5fcf7;
+        }
+
+        .fuel-table thead th {
+            background: var(--tab3-color);
+        }
+        .fuel-table tbody tr:hover td {
+            background: #f0f0ff;
+        }
+
+        .actions-cell {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+        }
+        .actions-cell button {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            color: #fff;
+            transition: 0.2s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+        .actions-cell .edit-btn {
+            background: var(--tab2-color);
+        }
+        .actions-cell .edit-btn:hover {
+            background: #009944;
+            transform: scale(1.08);
+        }
+        .actions-cell .delete-btn {
+            background: #FF5252;
+        }
+        .actions-cell .delete-btn:hover {
+            background: #d32f2f;
+            transform: scale(1.08);
+        }
+        .actions-cell .fuel-edit-btn {
+            background: var(--tab3-color);
+        }
+        .actions-cell .fuel-edit-btn:hover {
+            background: #4338CA;
+            transform: scale(1.08);
+        }
+
+        /* ============================================================
+                   FUEL TAB — unique styling
+                   ============================================================ */
+        .tab-fuel .card {
+            border-left-color: var(--tab3-color);
+            border-left-width: 5px;
+        }
+        .tab-fuel .card-header .card-icon {
+            background: var(--tab3-bg);
+            color: var(--tab3-color);
+        }
+        .tab-fuel .card-header .badge {
+            background: var(--tab3-bg);
+            color: var(--tab3-color);
+        }
+        .tab-fuel .form-group input:focus {
+            border-color: var(--tab3-color);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+        }
+        .tab-fuel .input-with-icon input:focus~.input-icon,
+        .tab-fuel .input-with-icon input:focus+.input-icon {
+            color: var(--tab3-color);
+        }
+
+        .fuel-result-box {
+            background: var(--tab3-bg);
+            border-radius: var(--radius-sm);
+            padding: 16px 18px;
+            margin-top: 14px;
+            text-align: center;
+            border: 2px solid rgba(79, 70, 229, 0.15);
+        }
+        .fuel-result-box .big-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--tab3-color);
+        }
+        .fuel-result-box .label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+        .fuel-result-box .sub-detail {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        .fuel-result-box .fuel-row {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 6px 0;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .fuel-result-box .fuel-row .fuel-item {
+            text-align: center;
+        }
+        .fuel-result-box .fuel-row .fuel-item .num {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--tab3-color);
+        }
+        .fuel-result-box .fuel-row .fuel-item .lbl {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* ============================================================
+                   SUMMARY BOXES
+                   ============================================================ */
+        .summary-box {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            padding: 12px 10px;
+            margin-top: 12px;
+            border: 1px dashed var(--border);
+            text-align: center;
+        }
+        .summary-box .sum-item .num {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--text);
+            letter-spacing: -0.2px;
+        }
+        .summary-box .sum-item .lbl {
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            letter-spacing: 0.2px;
+            text-transform: uppercase;
+        }
+        #tab2 .summary-box {
+            background: var(--tab2-bg);
+            border-color: #C8E6C9;
+        }
+        #tab2 .summary-box .num {
+            color: var(--tab2-color);
+        }
+        #tab3 .summary-box {
+            background: var(--tab3-bg);
+            border-color: #DDE2FF;
+        }
+        #tab3 .summary-box .num {
+            color: var(--tab3-color);
+        }
+        #tab4 .summary-box {
+            background: var(--tab4-bg);
+            border-color: #CCF3EE;
+        }
+        #tab4 .summary-box .num {
+            color: var(--tab4-color);
+        }
+
+        /* ============================================================
+                   TAB 4 — BIKE INFO
+                   ============================================================ */
+        .tab-bike .card {
+            border-left-color: var(--tab4-color);
+            border-left-width: 5px;
+        }
+        .tab-bike .card-header .card-icon {
+            background: var(--tab4-bg);
+            color: var(--tab4-color);
+        }
+        .tab-bike .card-header .badge {
+            background: var(--tab4-bg);
+            color: var(--tab4-color);
+        }
+        .tab-bike .form-group input:focus {
+            border-color: var(--tab4-color);
+            box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.15);
+        }
+
+        .btn-oil-add {
+            background: var(--tab4-color);
+            color: #fff;
+            width: 100%;
+            margin-top: 4px;
+            box-shadow: 0 4px 14px rgba(13, 148, 136, 0.25);
+        }
+        .btn-oil-add:hover {
+            background: #0B7C72;
+            box-shadow: 0 6px 18px rgba(13, 148, 136, 0.35);
+        }
+
+        .oil-table thead th {
+            background: var(--tab4-color);
+        }
+        .oil-table tbody tr:hover td {
+            background: #F0FDFA;
+        }
+        .oil-table .note-cell {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            max-width: 120px;
+            word-break: break-word;
+        }
+        .actions-cell .oil-edit-btn {
+            background: var(--tab4-color);
+        }
+        .actions-cell .oil-edit-btn:hover {
+            background: #0B7C72;
+            transform: scale(1.08);
+        }
+
+        .btn-bike-export {
+            background: var(--tab4-color);
+            color: #fff;
+        }
+        .btn-bike-export:hover {
+            background: #0B7C72;
+        }
+        .btn-bike-import {
+            background: #FF6F00;
+            color: #fff;
+        }
+        .btn-bike-import:hover {
+            background: #e65c00;
+        }
+        .btn-bike-clear {
+            background: #d32f2f;
+            color: #fff;
+        }
+        .btn-bike-clear:hover {
+            background: #b71c1c;
+        }
+
+        /* Notes list */
+        .notes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .note-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            background: #F5FDFC;
+            border: 1px solid #CCF3EE;
+            border-radius: 10px;
+            padding: 10px 12px;
+            animation: fadeSlideIn 0.25s ease-out;
+        }
+        .note-item.editing {
+            border-color: var(--tab4-color);
+            background: #E0F2F1;
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.10);
+        }
+        .note-item .note-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .note-item .note-text {
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--text);
+            line-height: 1.5;
+            word-break: break-word;
+        }
+        .note-item .note-meta {
+            font-size: 0.68rem;
+            color: var(--text-light);
+            margin-top: 3px;
+            font-weight: 500;
+        }
+        .note-item .note-edit,
+        .note-item .note-del {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: none;
+            color: #fff;
+            font-size: 11px;
+            cursor: pointer;
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            transition: 0.2s;
+        }
+        .note-item .note-edit {
+            background: var(--tab4-color);
+        }
+        .note-item .note-edit:hover {
+            background: #0B7C72;
+            transform: scale(1.08);
+        }
+        .note-item .note-del {
+            background: #FF5252;
+        }
+        .note-item .note-del:hover {
+            background: #d32f2f;
+            transform: scale(1.08);
+        }
+        .empty-note {
+            text-align: center;
+            padding: 16px 12px;
+            font-size: 0.82rem;
+            color: var(--text-light);
+            border: 1px dashed var(--border);
+            border-radius: 10px;
+            background: #FFFDFB;
+        }
+
+        /* ============================================================
+                   MISC
+                   ============================================================ */
+        .fuel-info-note {
+            text-align: center;
+            padding: 10px 16px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            background: #FFFDFB;
+            border-radius: var(--radius-sm);
+            border: 1px dashed #FDE8D0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .fuel-info-note i {
+            color: #F59E0B;
+            font-size: 14px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(120px);
+            background: #1A1A2E;
+            color: #fff;
+            padding: 12px 22px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            z-index: 1000;
+            pointer-events: none;
+            transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+            letter-spacing: 0.2px;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .install-banner {
+            display: none;
+            background: #1A1A2E;
+            color: #fff;
+            padding: 12px 18px;
+            border-radius: var(--radius);
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        .install-banner.show {
+            display: flex;
+        }
+        .install-banner:hover {
+            background: #2A2A3E;
+        }
+        .install-banner i {
+            font-size: 18px;
+        }
+
+        .clear-section {
+            text-align: center;
+            padding: 4px 0;
+        }
+
+        .app-footer {
+            text-align: center;
+            padding: 16px 8px 4px;
+            color: var(--text-light);
+            font-size: 0.78rem;
+            line-height: 1.7;
+        }
+        .app-footer strong {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+        .app-footer .footer-dot {
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            background: var(--primary);
+            border-radius: 50%;
+            margin: 0 6px;
+            vertical-align: middle;
+            animation: dotBlink 2s ease-in-out infinite;
+        }
+        @keyframes dotBlink {
+            0%,
+            100% {
+                opacity: 0.4;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* ============================================================
+                   RESPONSIVE
+                   ============================================================ */
+        @media (max-width: 480px) {
+            .app-container {
+                gap: 12px;
+                padding-bottom: 14px;
+            }
+            .card {
+                padding: 14px 14px;
+                border-radius: var(--radius);
+            }
+            .app-header h1 {
+                font-size: 1.3rem;
+            }
+            .app-header .logo-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+                border-radius: 16px;
+            }
+            .form-group input {
+                padding: 10px 12px;
+                font-size: 0.95rem;
+            }
+            .input-with-icon input {
+                padding-left: 36px;
+            }
+            .btn-calculate {
+                font-size: 1rem;
+                padding: 14px 18px;
+            }
+            .form-row {
+                gap: 8px;
+            }
+            .form-group {
+                min-width: 100%;
+                margin-bottom: 6px;
+            }
+            .tab-btn {
+                flex-direction: column;
+                gap: 3px;
+                font-size: 0.62rem;
+                padding: 8px 2px;
+                white-space: normal;
+                line-height: 1.2;
+                text-align: center;
+            }
+            .tab-btn i {
+                font-size: 0.8rem;
+            }
+            .fuel-result-box .big-number {
+                font-size: 1.7rem;
+            }
+            .fuel-result-box .fuel-row .fuel-item .num {
+                font-size: 1.2rem;
+            }
+            .result-row.net-profit-highlight .result-value {
+                font-size: 1.05rem;
+            }
+            .result-row.net-profit-highlight {
+                padding: 10px 12px;
+            }
+            table tbody td {
+                font-size: 0.75rem;
+                padding: 8px 4px;
+            }
+            table thead th {
+                font-size: 0.65rem;
+                padding: 8px 4px;
+            }
+            .summary-box .sum-item .num {
+                font-size: 0.95rem;
+            }
+            .summary-box .sum-item .lbl {
+                font-size: 0.6rem;
+            }
+            .oil-table .note-cell {
+                max-width: 70px;
+                font-size: 0.68rem;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 640px) {
+            .form-group {
+                min-width: 120px;
+            }
+            .form-row {
+                gap: 10px;
+            }
+            .tab-btn {
+                font-size: 0.72rem;
+                padding: 10px 4px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 24px;
+                align-items: center;
+            }
+            .app-container {
+                max-width: 680px;
+                gap: 16px;
+            }
+            .card {
+                padding: 22px 26px;
+            }
+            .form-group {
+                min-width: 140px;
+            }
+            .tab-btn {
+                font-size: 0.9rem;
+                padding: 14px 12px;
+            }
+            .fuel-result-box .big-number {
+                font-size: 2.6rem;
+            }
+            .fuel-result-box .fuel-row .fuel-item .num {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="logo-icon">🏍️</div>
+            <h1>Bike Tools</h1>
+            <p class="subtitle">Ride Profit • KM Track • Fuel Range • Bike Info</p>
+        </header>
+
+        <div class="install-banner" id="installBanner" onclick="installPWA()">
+            <i class="fas fa-download"></i> 📲 App Install Karein • Offline Use ke Liye
+        </div>
+
+        <!-- TABS -->
+        <div class="tabs" id="tabNav">
+            <button class="tab-btn active" data-tab="tab1" onclick="switchTab('tab1')">
+                <i class="fas fa-calculator"></i> <span>Profit</span>
+            </button>
+            <button class="tab-btn" data-tab="tab2" onclick="switchTab('tab2')">
+                <i class="fas fa-road"></i> <span>KM Track</span>
+            </button>
+            <button class="tab-btn" data-tab="tab3" onclick="switchTab('tab3')">
+                <i class="fas fa-gas-pump"></i> <span>Fuel Range</span>
+            </button>
+            <button class="tab-btn" data-tab="tab4" onclick="switchTab('tab4')">
+                <i class="fas fa-motorcycle"></i> <span>Bike Info</span>
+            </button>
+        </div>
+
+        <!-- ==================== TAB 1 ==================== -->
+        <div class="tab-content active" id="tab1">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon settings-icon" style="background:#FFF1EB;color:#FF5A1F;"><i class="fas fa-cog"></i></div>
+                    <h3>⚙️ Settings</h3>
+                    <span class="badge" style="background:#FFF1EB;color:#E04E15;">💾 Auto Save</span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>⛽ Bike Average (KM/L)</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-tachometer-alt input-icon"></i>
+                            <input type="number" id="bikeAverage" placeholder="e.g. 45" min="1" step="0.1" class="input-highlight">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>💰 Petrol Price (per Liter)</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-gas-pump input-icon"></i>
+                            <input type="number" id="petrolPrice" placeholder="e.g. 260" min="1" step="0.01" class="input-highlight">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label>📊 InDrive Commission (%)</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-percent input-icon"></i>
+                            <input type="number" id="commissionRate" placeholder="e.g. 11" min="0" max="100" step="0.1" class="input-highlight" value="11">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon ride-icon" style="background:#EEF2FF;color:#4F46E5;"><i class="fas fa-road"></i></div>
+                    <h3>📏 Ride Details</h3>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>🛣️ Distance (KM)</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-route input-icon"></i>
+                            <input type="number" id="distance" placeholder="Customer ne kitne KM safar kiya" min="0.1" step="0.1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>💵 Ride Fare (Customer Pays)</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-money-bill-wave input-icon"></i>
+                            <input type="number" id="rideFare" placeholder="InDrive ne kitna fare bataya" min="1" step="1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-calculate" onclick="calculateProfit()" id="calculateBtn">
+                <i class="fas fa-calculator"></i> Hisaab Lagao • Calculate Profit
+            </button>
+
+            <div class="card results-card" id="resultsCard">
+                <div class="card-header">
+                    <div class="card-icon result-icon" id="resultIcon" style="background:#ECFDF5;color:#10B981;"><i class="fas fa-chart-pie"></i></div>
+                    <h3 id="resultTitle">📊 Ride Ka Hisaab</h3>
+                </div>
+                <div id="resultsBody"></div>
+                <div id="verdictArea"></div>
+            </div>
+
+            <div class="clear-section">
+                <button class="btn btn-outline" onclick="clearRideData()" id="clearRideBtn">
+                    <i class="fas fa-trash-alt"></i> Clear All Data • Sab Data Hatao
+                </button>
+            </div>
+
+            <div class="fuel-info-note">
+                <i class="fas fa-info-circle"></i>
+                ⛽ Fuel cost aapki bike average ke hisaab se ride ki distance par calculate hoti hai
+            </div>
+        </div>
+
+        <!-- ==================== TAB 2 ==================== -->
+        <div class="tab-content" id="tab2">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background:var(--tab2-bg);color:var(--tab2-color);"><i class="fas fa-plus-circle"></i></div>
+                    <h3>➕ Naya Record / ✏️ Edit</h3>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>📅 Date</label>
+                        <input type="date" id="kmDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>🔢 Start Meter</label>
+                        <input type="number" id="startMeter" placeholder="Shuruaat ki reading">
+                    </div>
+                    <div class="form-group">
+                        <label>🔢 End Meter</label>
+                        <input type="number" id="endMeter" placeholder="Aakhri reading, phir Enter dabayein" onkeydown="if(event.key==='Enter') addKmRecord()">
+                    </div>
+                </div>
+                <button onclick="addKmRecord()" class="btn btn-add" id="kmAddUpdateBtn">Add Record</button>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background:var(--tab2-bg);color:var(--tab2-color);"><i class="fas fa-list-ul"></i></div>
+                    <h3>📋 Tracking Records</h3>
+                    <span class="badge" style="background:var(--tab2-bg);color:var(--tab2-color);" id="kmCount">0</span>
+                </div>
+                <div class="table-wrapper">
+                    <table id="kmTable">
+                        <thead><tr><th>Date</th><th>Start KM</th><th>End KM</th><th>Total KM</th><th>Actions</th></tr></thead>
+                        <tbody id="kmTbody"></tbody>
+                    </table>
+                </div>
+                <div class="summary-box">
+                    <div class="sum-item">
+                        <div class="num" id="kmTotalDisplay">0 KM</div>
+                        <div class="lbl">Total KM (Sare Records)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background:#FFF3E0;color:#FF6F00;"><i class="fas fa-archive"></i></div>
+                    <h3>💾 Backup &amp; Restore</h3>
+                </div>
+                <div class="btn-group">
+                    <button onclick="exportKMJSON()" class="btn btn-sm btn-export"><i class="fas fa-download"></i> Export</button>
+                    <button onclick="importKMJSON()" class="btn btn-sm btn-import"><i class="fas fa-upload"></i> Restore</button>
+                    <button onclick="clearAllKM()" class="btn btn-sm btn-clear"><i class="fas fa-trash"></i> Clear All</button>
+                </div>
+                <input type="file" id="kmFileInput" accept=".json" hidden>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 3 ==================== -->
+        <div class="tab-content tab-fuel" id="tab3">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background:var(--tab3-bg);color:var(--tab3-color);"><i class="fas fa-sliders-h"></i></div>
+                    <h3>⚙️ Fuel Settings</h3>
+                    <span class="badge" style="background:var(--tab3-bg);color:var(--tab3-color);">💾 Auto Save</span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>⛽ Bike Average (KM/L)</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-tachometer-alt input-icon" style="color:var(--tab3-color);"></i>
+                            <input type="number" id="fuelBikeAvg" placeholder="e.g. 45" min="1" step="0.1" style="border-color:rgba(79,70,229,0.2);">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>💰 Petrol Price (Rs./L)</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-gas-pump input-icon" style="color:var(--tab3-color);"></i>
+                            <input type="number" id="fuelPetrolPrice" placeholder="e.g. 260" min="1" step="0.01" style="border-color:rgba(79,70,229,0.2);">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background:var(--tab3-bg);color:var(--tab3-color);"><i class="fas fa-plus-circle"></i></div>
+                    <h3>⛽ Petrol Fill-up (Rs. based)</h3>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>📅 Date</label>
+                        <input type="date" id="fuelDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>💰 Amount Paid (Rs.)</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-rupee-sign input-icon" style="color:var(--tab3-color);"></i>
+                            <input type="number" id="fuelAmount" placeholder="Kitne Rs. diye?" min="1" step="1" style="border-color:rgba(79,70,229,0.2);" oninput="updateFuelLive()">
+                        </div>
+                    </div>
+                </div>
+                <button onclick="addFuelRecord()" class="btn btn-fuel-add" id="fuelAddUpdateBtn">Add Record</button>
+
+                <div class="fuel-result-box" id="fuelLiveResult">
+                    <div class="label">📊 Your Fuel Calculation</div>
+                    <div class="fuel-row">
+                        <div class="fuel-item">
+                            <div class="num" id="fuelLitersDisplay">—</div>
+                            <div class="lbl">Liters</div>
+                        </div>
+                        <div class="fuel-item">
+                            <div class="num" id="fuelRangeDisplay">—</div>
+                            <div class="lbl">Expected KM</div>
+                        </div>
+                        <div class="fuel-item">
+                            <div class="num" id="fuelCostPerKMDisplay">—</div>
+                            <div class="lbl">Rs./KM</div>
+                        </div>
+                    </div>
+                    <div class="sub-detail" id="fuelCalcDetail">Amount ÷ Price = Liters &nbsp;•&nbsp; Liters × Average = KM</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background:var(--tab3-bg);color:var(--tab3-color);"><i class="fas fa-history"></i></div>
+                    <h3>📋 Fill-up History</h3>
+                    <span class="badge" style="background:var(--tab3-bg);color:var(--tab3-color);" id="fuelCount">0</span>
+                </div>
+                <div class="table-wrapper">
+                    <table class="fuel-table" id="fuelTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Amount (Rs.)</th>
+                                <th>Liters</th>
+                                <th>Expected KM</th>
+                                <th>Rs./KM</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="fuelTbody"></tbody>
+                    </table>
+                </div>
+                <div class="summary-box">
+                    <div class="sum-item">
+                        <div class="num" id="fuelTotalAmountDisplay">Rs. 0.00</div>
+                        <div class="lbl">Total Petrol Cost</div>
+                    </div>
+                    <div class="sum-item">
+                        <div class="num" id="fuelTotalLitersDisplay">0 L</div>
+                        <div class="lbl">Total Liters</div>
+                    </div>
+                    <div class="sum-item">
+                        <div class="num" id="fuelTotalKmDisplay">0 KM</div>
+                        <div class="lbl">Total Expected KM</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background:#EDE7F6;color:#5E35B1;"><i class="fas fa-archive"></i></div>
+                    <h3>💾 Backup &amp; Restore</h3>
+                </div>
+                <div class="btn-group">
+                    <button onclick="exportFuelJSON()" class="btn btn-sm btn-fuel-export"><i class="fas fa-download"></i> Export</button>
+                    <button onclick="importFuelJSON()" class="btn btn-sm btn-fuel-import"><i class="fas fa-upload"></i> Restore</button>
+                    <button onclick="clearAllFuel()" class="btn btn-sm btn-fuel-clear"><i class="fas fa-trash"></i> Clear All</button>
+                </div>
+                <input type="file" id="fuelFileInput" accept=".json" hidden>
+            </div>
+
+            <div class="fuel-info-note" style="border-color:rgba(79,70,229,0.2);background:#F8F7FF;">
+                <i class="fas fa-info-circle" style="color:var(--tab3-color);"></i>
+                🔢 Liters = Amount ÷ Price &nbsp;•&nbsp; Expected KM = Liters × Average &nbsp;•&nbsp; Rs./KM = Amount ÷ Expected KM
+            </div>
+        </div>
+
+        <!-- ==================== TAB 4 ==================== -->
+        <div class="tab-content tab-bike" id="tab4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background:var(--tab4-bg);color:var(--tab4-color);"><i class="fas fa-oil-can"></i></div>
+                    <h3>🛢️ Oil Change Record</h3>
+                    <span class="badge">🛠️ Maintenance</span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>📅 Date</label>
+                        <input type="date" id="oilDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>🔢 Start Reading</label>
+                        <input type="number" id="oilStart" placeholder="e.g. 1000" min="0" step="1">
+                    </div>
+                    <div class="form-group">
+                        <label>🔢 End Reading</label>
+                        <input type="number" id="oilEnd" placeholder="e.g. 2500" min="0" step="1" onkeydown="if(event.key==='Enter'){event.preventDefault();addOilRecord();}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label>📝 Note (optional)</label>
+                        <input type="text" id="oilNote" placeholder="e.g. Castrol 10W-40, Honda CD70" onkeydown="if(event.key==='Enter'){event.preventDefault();addOilRecord();}">
+                    </div>
+                </div>
+                <button onclick="addOilRecord()" class="btn btn-oil-add" id="oilAddUpdateBtn">Add Oil Change</button>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background:var(--tab4-bg);color:var(--tab4-color);"><i class="fas fa-history"></i></div>
+                    <h3>📋 Oil Change History</h3>
+                    <span class="badge" id="oilCount">0</span>
+                </div>
+                <div class="table-wrapper">
+                    <table class="oil-table" id="oilTable">
+                        <thead>
+                            <tr><th>Date</th><th>Start KM</th><th>End KM</th><th>Gap (KM)</th><th>Note</th><th>Actions</th></tr>
+                        </thead>
+                        <tbody id="oilTbody"></tbody>
+                    </table>
+                </div>
+                <div class="summary-box">
+                    <div class="sum-item">
+                        <div class="num" id="oilTotalGap">0 KM</div>
+                        <div class="lbl">Total KM (Sare Oil Changes)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background:var(--tab4-bg);color:var(--tab4-color);"><i class="fas fa-sticky-note"></i></div>
+                    <h3>📝 Bike Notes</h3>
+                    <span class="badge" id="noteCount">0</span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label>✍️ Naya Note Likhein</label>
+                        <input type="text" id="noteInput" placeholder="e.g. Chain tight karwai, Engine oil check..." onkeydown="if(event.key==='Enter'){event.preventDefault();addNote();}">
+                    </div>
+                </div>
+                <button onclick="addNote()" class="btn btn-oil-add" id="noteAddUpdateBtn">
+                    <i class="fas fa-plus"></i> Add Note
+                </button>
+                <div class="notes-list" id="notesList"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background:#E0F2F1;color:#0D9488;"><i class="fas fa-archive"></i></div>
+                    <h3>💾 Backup &amp; Restore</h3>
+                </div>
+                <div class="btn-group">
+                    <button onclick="exportBikeJSON()" class="btn btn-sm btn-bike-export"><i class="fas fa-download"></i> Export</button>
+                    <button onclick="importBikeJSON()" class="btn btn-sm btn-bike-import"><i class="fas fa-upload"></i> Restore</button>
+                    <button onclick="clearAllBike()" class="btn btn-sm btn-bike-clear"><i class="fas fa-trash"></i> Clear All</button>
+                </div>
+                <input type="file" id="bikeFileInput" accept=".json" hidden>
+            </div>
+
+            <div class="fuel-info-note" style="border-color:#CCF3EE;background:#F5FDFC;">
+                <i class="fas fa-info-circle" style="color:var(--tab4-color);"></i>
+                🛢️ Oil change ki Start/End readings likhein — Gap khud calculate hoga. Notes edit/delete bhi kar sakte hain.
+            </div>
+        </div>
+
+        <footer class="app-footer">
+            <strong>Bike Tools</strong> v3.0
+            <span class="footer-dot"></span>
+            © 2026 <strong>ALQAAB Tech</strong> by ALQAAB-Hub | Shahbaz Ali
+            <br>Designed with ❤️ for Pakistani Riders
+        </footer>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // ─────────────────────────────────────────────
+            //  TOAST
+            // ─────────────────────────────────────────────
+            const toastEl = document.getElementById('toast');
+            let toastTimer;
+
+            function showToast(msg) {
+                clearTimeout(toastTimer);
+                toastEl.textContent = msg;
+                toastEl.classList.add('show');
+                toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
+            }
+
+            // ─────────────────────────────────────────────
+            //  TABS
+            // ─────────────────────────────────────────────
+            function switchTab(tabId) {
+                document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+                document.getElementById(tabId).classList.add('active');
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === tabId);
+                });
+                const content = document.getElementById(tabId);
+                content.style.animation = 'none';
+                content.offsetHeight;
+                content.style.animation = 'fadeSlideIn 0.35s ease-out';
+                if (tabId === 'tab3') updateFuelLive();
+            }
+            window.switchTab = switchTab;
+
+            // ─────────────────────────────────────────────
+            //  PWA INSTALL
+            // ─────────────────────────────────────────────
+            let deferredPrompt = null;
+            const installBanner = document.getElementById('installBanner');
+
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                installBanner.classList.add('show');
+            });
+
+            window.installPWA = function() {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then((choice) => {
+                        if (choice.outcome === 'accepted') {
+                            showToast('✅ App install ho rahi hai...');
+                            installBanner.classList.remove('show');
+                        } else {
+                            showToast('ℹ️ App install cancel ki gayi');
+                        }
+                        deferredPrompt = null;
+                    });
+                } else {
+                    showToast('ℹ️ App already installed hai ya abhi available nahi');
+                    installBanner.classList.remove('show');
+                }
+            };
+
+            window.addEventListener('appinstalled', () => {
+                installBanner.classList.remove('show');
+                deferredPrompt = null;
+                showToast('🎉 App successfully installed!');
+            });
+
+            // ─────────────────────────────────────────────
+            //  SHARED HELPERS
+            // ─────────────────────────────────────────────
+            function formatPKR(val) {
+                return 'Rs. ' + Math.abs(val).toLocaleString('en-PK', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+            }
+
+            function formatDate(dateStr) {
+                if (!dateStr) return '';
+                const parts = String(dateStr).split('-');
+                if (parts.length !== 3) return dateStr;
+                return `${parts[2]}-${parts[1]}-${parts[0]}`;
+            }
+
+            function setToday(el) {
+                const today = new Date().toISOString().split('T')[0];
+                if (el) el.value = today;
+            }
+
+            function escapeHtml(str) {
+                return String(str).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+            }
+
+            // ─────────────────────────────────────────────
+            //  TAB 1 — RIDE PROFIT
+            // ─────────────────────────────────────────────
+            const RIDE_KEYS = {
+                bikeAvg: 'rpc_v3_bikeAverage',
+                petrol: 'rpc_v3_petrolPrice',
+                commission: 'rpc_v3_commissionRate',
+            };
+
+            const bikeAvgInput = document.getElementById('bikeAverage');
+            const petrolPriceInput = document.getElementById('petrolPrice');
+            const commissionInput = document.getElementById('commissionRate');
+            const distInput = document.getElementById('distance');
+            const fareInput = document.getElementById('rideFare');
+            const resultsCard = document.getElementById('resultsCard');
+            const resultsBody = document.getElementById('resultsBody');
+            const verdictArea = document.getElementById('verdictArea');
+            const resultIcon = document.getElementById('resultIcon');
+            const resultTitle = document.getElementById('resultTitle');
+
+            function loadRideSettings() {
+                const avg = localStorage.getItem(RIDE_KEYS.bikeAvg);
+                const price = localStorage.getItem(RIDE_KEYS.petrol);
+                const comm = localStorage.getItem(RIDE_KEYS.commission);
+                if (avg && !isNaN(avg) && parseFloat(avg) > 0) bikeAvgInput.value = parseFloat(avg);
+                if (price && !isNaN(price) && parseFloat(price) > 0) petrolPriceInput.value = parseFloat(price);
+                if (comm && !isNaN(comm) && parseFloat(comm) >= 0) commissionInput.value = parseFloat(comm);
+                else if (comm === null) commissionInput.value = 11;
+            }
+
+            function saveRideSetting(key, val) {
+                if (val !== null && !isNaN(val) && val >= 0) localStorage.setItem(key, parseFloat(val));
+            }
+
+            [bikeAvgInput, petrolPriceInput, commissionInput].forEach((inp, idx) => {
+                const key = [RIDE_KEYS.bikeAvg, RIDE_KEYS.petrol, RIDE_KEYS.commission][idx];
+                const msgs = ['✅ Bike Average saved!', '✅ Petrol Price saved!', '✅ Commission Rate saved!'];
+                inp.addEventListener('change', function() {
+                    const v = parseFloat(this.value);
+                    if (!isNaN(v) && v >= 0) {
+                        saveRideSetting(key, v);
+                        showToast(msgs[idx]);
+                        if (key === RIDE_KEYS.bikeAvg) document.getElementById('fuelBikeAvg').value = v;
+                        if (key === RIDE_KEYS.petrol) document.getElementById('fuelPetrolPrice').value = v;
+                        if (document.getElementById('tab3').classList.contains('active')) updateFuelLive();
+                    }
+                });
+                inp.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        this.blur();
+                        const v = parseFloat(this.value);
+                        if (!isNaN(v) && v >= 0) {
+                            saveRideSetting(key, v);
+                            showToast(msgs[idx]);
+                            if (key === RIDE_KEYS.bikeAvg) document.getElementById('fuelBikeAvg').value = v;
+                            if (key === RIDE_KEYS.petrol) document.getElementById('fuelPetrolPrice').value = v;
+                            if (document.getElementById('tab3').classList.contains('active')) updateFuelLive();
+                        }
+                    }
+                });
+            });
+
+            window.calculateProfit = function() {
+                const avg = parseFloat(bikeAvgInput.value);
+                const price = parseFloat(petrolPriceInput.value);
+                const comm = parseFloat(commissionInput.value);
+                const dist = parseFloat(distInput.value);
+                const fare = parseFloat(fareInput.value);
+
+                const errors = [];
+                if (isNaN(avg) || avg <= 0) errors.push('Bike Average');
+                if (isNaN(price) || price <= 0) errors.push('Petrol Price');
+                if (isNaN(comm) || comm < 0) errors.push('Commission');
+                if (isNaN(dist) || dist <= 0) errors.push('Distance');
+                if (isNaN(fare) || fare <= 0) errors.push('Ride Fare');
+
+                if (errors.length) {
+                    showToast('⚠️ Please fill: ' + errors.join(', '));
+                    [bikeAvgInput, petrolPriceInput, commissionInput, distInput, fareInput].forEach(inp => {
+                        const v = parseFloat(inp.value);
+                        if (isNaN(v) || v <= 0) {
+                            inp.style.borderColor = '#EF4444';
+                            inp.style.backgroundColor = '#FFF5F5';
+                            setTimeout(() => { inp.style.borderColor = '';
+                                inp.style.backgroundColor = ''; }, 2000);
+                        }
+                    });
+                    return;
+                }
+
+                saveRideSetting(RIDE_KEYS.bikeAvg, avg);
+                saveRideSetting(RIDE_KEYS.petrol, price);
+                saveRideSetting(RIDE_KEYS.commission, comm);
+
+                const fuelCost = (dist / avg) * price;
+                const commission = fare * (comm / 100);
+                const driverEarning = fare - commission;
+                const netProfit = driverEarning - fuelCost;
+                const isProfitable = netProfit > 0.5;
+                const profitPerKM = netProfit / dist;
+
+                let html = '';
+                html += `
+              <div class="result-row">
+                <span class="result-label"><i class="fas fa-receipt" style="color:#6366F1;"></i> Total Fare (Customer Pays)</span>
+                <span class="result-value" style="color:#4F46E5;">${formatPKR(fare)}</span>
+              </div>
+              <div class="result-row">
+                <span class="result-label"><i class="fas fa-gas-pump" style="color:#F59E0B;"></i> Fuel Cost</span>
+                <span class="result-value">${formatPKR(fuelCost)}</span>
+              </div>
+              <div class="result-row">
+                <span class="result-label"><i class="fas fa-percent" style="color:#8B5CF6;"></i> InDrive Commission (${comm}%)</span>
+                <span class="result-value" style="color:#8B5CF6;">${formatPKR(commission)}</span>
+              </div>
+              <div class="result-row net-profit-highlight">
+                <span class="result-label">
+                  <i class="fas fa-chart-line" style="color:${isProfitable ? '#10B981' : '#EF4444'};"></i>
+                  <strong>Net Profit / Loss</strong>
+                </span>
+                <span class="result-value ${isProfitable ? 'positive' : 'negative'}" style="font-size:1.2rem;font-weight:800;">
+                  ${isProfitable ? '+' : '-'}${formatPKR(netProfit)}
+                </span>
+              </div>
+              <div class="result-row per-km-row">
+                <span class="result-label"><i class="fas fa-tag" style="color:#9CA3AF;"></i> Per KM Earning</span>
+                <span class="result-value ${profitPerKM >= 0 ? 'positive' : 'negative'}">
+                  ${profitPerKM >= 0 ? '+' : '-'}${formatPKR(profitPerKM)} / KM
+                </span>
+              </div>
+            `;
+                resultsBody.innerHTML = html;
+
+                if (isProfitable) {
+                    verdictArea.innerHTML = `
+                <div class="result-verdict profit-verdict">
+                  <span class="verdict-emoji">🟢🎉</span>
+                  <strong>Fayde Ki Ride Hai! ✅</strong><br>
+                  <span style="font-size:0.9rem;font-weight:500;">Mashallah, is ride mein <strong>${formatPKR(netProfit)}</strong> ka faida hua!</span>
+                </div>`;
+                    resultsCard.className = 'card results-card show profit';
+                    resultIcon.innerHTML = '<i class="fas fa-check-circle"></i>';
+                    resultIcon.style.background = '#ECFDF5';
+                    resultIcon.style.color = '#10B981';
+                    resultTitle.textContent = '📊 Fayde Ki Ride • Profit Report';
+                    showToast('🟢 Fayde ki ride! +' + formatPKR(netProfit));
+                } else if (Math.abs(netProfit) < 0.5) {
+                    verdictArea.innerHTML = `
+                <div class="result-verdict" style="background:#FFFBEB;color:#92400E;border:2px solid #FCD34D;">
+                  <span class="verdict-emoji">🟡😐</span>
+                  <strong>Barabar Ki Ride • Break Even</strong><br>
+                  <span style="font-size:0.9rem;font-weight:500;">Na faida, na nuqsan. Exactly barabar rahi ye ride.</span>
+                </div>`;
+                    resultsCard.className = 'card results-card show';
+                    resultsCard.style.borderLeft = '5px solid #F59E0B';
+                    resultIcon.innerHTML = '<i class="fas fa-equals"></i>';
+                    resultIcon.style.background = '#FFFBEB';
+                    resultIcon.style.color = '#F59E0B';
+                    resultTitle.textContent = '📊 Barabar Ride • Break Even';
+                    showToast('🟡 Barabar ride rahi!');
+                } else {
+                    verdictArea.innerHTML = `
+                <div class="result-verdict loss-verdict">
+                  <span class="verdict-emoji">🔴😞</span>
+                  <strong>Nuqsan Ki Ride Hai! ❌</strong><br>
+                  <span style="font-size:0.9rem;font-weight:500;">Afsos, is ride mein <strong>${formatPKR(netProfit)}</strong> ka nuqsan hua. Soch samajh kar chalo!</span>
+                </div>`;
+                    resultsCard.className = 'card results-card show loss';
+                    resultIcon.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+                    resultIcon.style.background = '#FEF2F2';
+                    resultIcon.style.color = '#EF4444';
+                    resultTitle.textContent = '📊 Nuqsan Ki Ride • Loss Report';
+                    showToast('🔴 Nuqsan ki ride! ' + formatPKR(netProfit));
+                }
+
+                resultsCard.classList.add('show');
+                resultsCard.style.animation = 'none';
+                resultsCard.offsetHeight;
+                resultsCard.style.animation = 'fadeSlideIn 0.4s ease-out';
+                resultsCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            };
+
+            window.clearRideData = function() {
+                if (!confirm('⚠️ Kya aap waqai sab data hataana chahte hain?\n\nYe clear hoga:\n• Bike Average\n• Petrol Price\n• Commission Rate\n• Sab input fields\n• Calculation Results\n\nYe action undo nahi ho sakta!')) return;
+                localStorage.removeItem(RIDE_KEYS.bikeAvg);
+                localStorage.removeItem(RIDE_KEYS.petrol);
+                localStorage.removeItem(RIDE_KEYS.commission);
+                bikeAvgInput.value = '';
+                petrolPriceInput.value = '';
+                commissionInput.value = '11';
+                distInput.value = '';
+                fareInput.value = '';
+                resultsCard.classList.remove('show', 'profit', 'loss');
+                resultsCard.style.borderLeft = '';
+                resultsBody.innerHTML = '';
+                verdictArea.innerHTML = '';
+                resultIcon.className = 'card-icon result-icon';
+                resultIcon.innerHTML = '<i class="fas fa-chart-pie"></i>';
+                resultIcon.style.background = '#ECFDF5';
+                resultIcon.style.color = '#10B981';
+                resultTitle.textContent = '📊 Ride Ka Hisaab';
+                [bikeAvgInput, petrolPriceInput, commissionInput, distInput, fareInput].forEach(inp => {
+                    inp.style.borderColor = '';
+                    inp.style.backgroundColor = '';
+                });
+                showToast('🗑️ Sab data clear ho gaya!');
+            };
+
+            distInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault();
+                    fareInput.focus(); } });
+            fareInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault();
+                    calculateProfit(); } });
+
+            // ─────────────────────────────────────────────
+            //  TAB 2 — KM TRACKING
+            // ─────────────────────────────────────────────
+            let kmRecords = JSON.parse(localStorage.getItem('meterRecords')) || [];
+            let kmEditIndex = null;
+
+            const kmDate = document.getElementById('kmDate');
+            const kmStart = document.getElementById('startMeter');
+            const kmEnd = document.getElementById('endMeter');
+            const kmAddBtn = document.getElementById('kmAddUpdateBtn');
+            const kmTbody = document.getElementById('kmTbody');
+            const kmCount = document.getElementById('kmCount');
+
+            function saveKM() {
+                localStorage.setItem('meterRecords', JSON.stringify(kmRecords));
+            }
+
+            function renderKM() {
+                kmTbody.innerHTML = '';
+                kmRecords.forEach((rec, idx) => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                <td>${formatDate(rec.date)}</td>
+                <td>${rec.start}</td>
+                <td>${rec.end ?? '—'}</td>
+                <td>${rec.totalKM !== null && rec.totalKM >= 0 ? rec.totalKM : '—'}</td>
+                <td class="actions-cell">
+                  <button class="edit-btn" onclick="editKM(${idx})" title="Edit"><i class="fas fa-pen"></i></button>
+                  <button class="delete-btn" onclick="deleteKM(${idx})" title="Delete"><i class="fas fa-trash"></i></button>
+                </td>
+              `;
+                    kmTbody.appendChild(tr);
+                });
+                kmCount.textContent = kmRecords.length;
+                const totalKM = kmRecords.reduce((sum, r) => sum + (typeof r.totalKM === 'number' && r.totalKM > 0 ? r.totalKM : 0), 0);
+                document.getElementById('kmTotalDisplay').textContent = totalKM.toLocaleString('en-PK') + ' KM';
+            }
+
+            window.addKmRecord = function() {
+                const date = kmDate.value;
+                const start = kmStart.value;
+                const end = kmEnd.value;
+                if (!date || !start) { alert('Date aur Start Meter dono bharna zaroori hai!'); return; }
+                const startNum = parseInt(start);
+                const endNum = end ? parseInt(end) : null;
+                const totalKM = (endNum !== null && !isNaN(endNum)) ? endNum - startNum : null;
+                const data = { date, start: startNum, end: endNum, totalKM: totalKM !== null && totalKM >= 0 ? totalKM : null };
+                if (kmEditIndex !== null) { kmRecords[kmEditIndex] = data; } else { kmRecords.push(data); }
+                saveKM();
+                renderKM();
+                resetKMForm();
+                showToast('✅ Record saved!');
+            };
+
+            function resetKMForm() {
+                setToday(kmDate);
+                kmStart.value = '';
+                kmEnd.value = '';
+                kmAddBtn.textContent = 'Add Record';
+                kmEditIndex = null;
+            }
+
+            window.editKM = function(idx) {
+                const rec = kmRecords[idx];
+                kmDate.value = rec.date;
+                kmStart.value = rec.start;
+                kmEnd.value = rec.end ?? '';
+                kmAddBtn.textContent = 'Update Record';
+                kmEditIndex = idx;
+                document.querySelector('#tab2 .card').scrollIntoView({ behavior: 'smooth' });
+            };
+
+            window.deleteKM = function(idx) {
+                if (kmEditIndex === idx) resetKMForm();
+                else if (kmEditIndex !== null && idx < kmEditIndex) kmEditIndex--;
+                kmRecords.splice(idx, 1);
+                saveKM();
+                renderKM();
+                showToast('🗑️ Record deleted');
+            };
+
+            window.exportKMJSON = function() {
+                const blob = new Blob([JSON.stringify(kmRecords, null, 2)], { type: 'application/json' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = `bike-km-backup-${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                URL.revokeObjectURL(a.href);
+                showToast('📤 Export done!');
+            };
+
+            window.importKMJSON = function() {
+                document.getElementById('kmFileInput').click();
+                document.getElementById('kmFileInput').onchange = function(e) {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = function(ev) {
+                        try {
+                            const data = JSON.parse(ev.target.result);
+                            if (Array.isArray(data)) { kmRecords = data;
+                                saveKM();
+                                renderKM();
+                                resetKMForm();
+                                showToast('✅ Data restored!'); } else { alert('Invalid JSON format!'); }
+                        } catch { alert('File parse nahi ho saki!'); }
+                    };
+                    reader.readAsText(file);
+                    this.value = '';
+                };
+            };
+
+            window.clearAllKM = function() {
+                if (kmRecords.length === 0) { alert('Koi record mojood nahi hai!'); return; }
+                if (!confirm('Kya aap waqai saare records delete karna chahte hain? Ye action undo nahi ho sakta.')) return;
+                kmRecords = [];
+                saveKM();
+                renderKM();
+                resetKMForm();
+                showToast('🗑️ Sare records delete kar diye gaye.');
+            };
+
+            // ─────────────────────────────────────────────
+            //  TAB 3 — FUEL RANGE
+            // ─────────────────────────────────────────────
+            const FUEL_KEYS = { records: 'fuelRecords_v2' };
+
+            let fuelRecords = JSON.parse(localStorage.getItem(FUEL_KEYS.records)) || [];
+            let fuelEditIndex = null;
+
+            const fuelAvg = document.getElementById('fuelBikeAvg');
+            const fuelPrice = document.getElementById('fuelPetrolPrice');
+            const fuelDate = document.getElementById('fuelDate');
+            const fuelAmount = document.getElementById('fuelAmount');
+            const fuelAddBtn = document.getElementById('fuelAddUpdateBtn');
+            const fuelTbody = document.getElementById('fuelTbody');
+            const fuelCount = document.getElementById('fuelCount');
+            const fuelLitersDisplay = document.getElementById('fuelLitersDisplay');
+            const fuelRangeDisplay = document.getElementById('fuelRangeDisplay');
+            const fuelCostPerKMDisplay = document.getElementById('fuelCostPerKMDisplay');
+            const fuelCalcDetail = document.getElementById('fuelCalcDetail');
+
+            function loadFuelSettings() {
+                const avg = localStorage.getItem(RIDE_KEYS.bikeAvg);
+                const price = localStorage.getItem(RIDE_KEYS.petrol);
+                if (avg && !isNaN(avg) && parseFloat(avg) > 0) fuelAvg.value = parseFloat(avg);
+                else fuelAvg.value = '';
+                if (price && !isNaN(price) && parseFloat(price) > 0) fuelPrice.value = parseFloat(price);
+                else fuelPrice.value = '';
+            }
+
+            function saveFuelSetting(key, val) {
+                if (val !== null && !isNaN(val) && val >= 0) localStorage.setItem(key, parseFloat(val));
+            }
+
+            [fuelAvg, fuelPrice].forEach((inp, idx) => {
+                const key = [RIDE_KEYS.bikeAvg, RIDE_KEYS.petrol][idx];
+                const msgs = ['✅ Fuel Bike Average saved!', '✅ Fuel Petrol Price saved!'];
+                inp.addEventListener('change', function() {
+                    const v = parseFloat(this.value);
+                    if (!isNaN(v) && v >= 0) {
+                        saveFuelSetting(key, v);
+                        showToast(msgs[idx]);
+                        if (key === RIDE_KEYS.bikeAvg) document.getElementById('bikeAverage').value = v;
+                        if (key === RIDE_KEYS.petrol) document.getElementById('petrolPrice').value = v;
+                        updateFuelLive();
+                    }
+                });
+                inp.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        this.blur();
+                        const v = parseFloat(this.value);
+                        if (!isNaN(v) && v >= 0) {
+                            saveFuelSetting(key, v);
+                            showToast(msgs[idx]);
+                            if (key === RIDE_KEYS.bikeAvg) document.getElementById('bikeAverage').value = v;
+                            if (key === RIDE_KEYS.petrol) document.getElementById('petrolPrice').value = v;
+                            updateFuelLive();
+                        }
+                    }
+                });
+            });
+
+            function saveFuelRecords() {
+                localStorage.setItem(FUEL_KEYS.records, JSON.stringify(fuelRecords));
+            }
+
+            function updateFuelLive() {
+                const amount = parseFloat(fuelAmount.value);
+                const avg = parseFloat(fuelAvg.value);
+                const price = parseFloat(fuelPrice.value);
+
+                if (!isNaN(amount) && amount > 0 && !isNaN(avg) && avg > 0 && !isNaN(price) && price > 0) {
+                    const liters = amount / price;
+                    const expectedKM = liters * avg;
+                    const costPerKM = amount / expectedKM;
+
+                    fuelLitersDisplay.textContent = liters.toFixed(2) + ' L';
+                    fuelRangeDisplay.textContent = expectedKM.toFixed(1) + ' KM';
+                    fuelCostPerKMDisplay.textContent = formatPKR(costPerKM);
+                    fuelCalcDetail.textContent = `${formatPKR(amount)} ÷ ${price} = ${liters.toFixed(2)}L  •  ${liters.toFixed(2)}L × ${avg} = ${expectedKM.toFixed(1)} KM`;
+                } else {
+                    fuelLitersDisplay.textContent = '—';
+                    fuelRangeDisplay.textContent = '—';
+                    fuelCostPerKMDisplay.textContent = '—';
+                    fuelCalcDetail.textContent = 'Amount ÷ Price = Liters  •  Liters × Average = KM';
+                }
+            }
+
+            function renderFuel() {
+                fuelTbody.innerHTML = '';
+                fuelRecords.forEach((rec, idx) => {
+                    const tr = document.createElement('tr');
+                    const litersVal = (rec.amount && rec.price) ? (rec.amount / rec.price).toFixed(2) : '—';
+                    const kmVal = (rec.amount && rec.price && rec.average) ? ((rec.amount / rec.price) * rec.average).toFixed(1) : '—';
+                    const costPerKM = (rec.amount && rec.price && rec.average) ? (rec.amount / ((rec.amount / rec.price) * rec.average)) : null;
+                    const costPerKMStr = costPerKM !== null ? formatPKR(costPerKM) : '—';
+                    tr.innerHTML = `
+                <td>${formatDate(rec.date)}</td>
+                <td>${formatPKR(rec.amount)}</td>
+                <td>${litersVal}</td>
+                <td>${kmVal}</td>
+                <td>${costPerKMStr}</td>
+                <td class="actions-cell">
+                  <button class="fuel-edit-btn" onclick="editFuel(${idx})" title="Edit"><i class="fas fa-pen"></i></button>
+                  <button class="delete-btn" onclick="deleteFuel(${idx})" title="Delete"><i class="fas fa-trash"></i></button>
+                </td>
+              `;
+                    fuelTbody.appendChild(tr);
+                });
+                fuelCount.textContent = fuelRecords.length;
+
+                let totalAmount = 0, totalLiters = 0, totalExpectedKm = 0;
+                fuelRecords.forEach(rec => {
+                    const amt = Number(rec.amount) || 0;
+                    const prc = Number(rec.price) || 0;
+                    const avg = Number(rec.average) || 0;
+                    totalAmount += amt;
+                    if (prc > 0 && amt > 0) {
+                        const l = amt / prc;
+                        totalLiters += l;
+                        totalExpectedKm += l * avg;
+                    }
+                });
+                document.getElementById('fuelTotalAmountDisplay').textContent = formatPKR(totalAmount);
+                document.getElementById('fuelTotalLitersDisplay').textContent = totalLiters.toFixed(2) + ' L';
+                document.getElementById('fuelTotalKmDisplay').textContent = totalExpectedKm.toFixed(1) + ' KM';
+            }
+
+            window.addFuelRecord = function() {
+                const date = fuelDate.value;
+                const amount = parseFloat(fuelAmount.value);
+                const avg = parseFloat(fuelAvg.value);
+                const price = parseFloat(fuelPrice.value);
+
+                if (!date) { alert('Date select karein!'); return; }
+                if (isNaN(amount) || amount <= 0) { alert('Amount (Rs.) daalein!'); return; }
+                if (isNaN(avg) || avg <= 0) { alert('Bike Average set karein!'); return; }
+                if (isNaN(price) || price <= 0) { alert('Petrol Price set karein!'); return; }
+
+                saveFuelSetting(RIDE_KEYS.bikeAvg, avg);
+                saveFuelSetting(RIDE_KEYS.petrol, price);
+
+                const data = { date, amount, average: avg, price };
+                if (fuelEditIndex !== null) { fuelRecords[fuelEditIndex] = data; } else { fuelRecords.push(data); }
+                saveFuelRecords();
+                renderFuel();
+                resetFuelForm();
+                showToast('✅ Fuel record saved!');
+            };
+
+            function resetFuelForm() {
+                setToday(fuelDate);
+                fuelAmount.value = '';
+                fuelAddBtn.textContent = 'Add Record';
+                fuelEditIndex = null;
+                updateFuelLive();
+            }
+
+            window.editFuel = function(idx) {
+                const rec = fuelRecords[idx];
+                fuelDate.value = rec.date;
+                fuelAmount.value = rec.amount;
+                fuelAvg.value = rec.average;
+                fuelPrice.value = rec.price;
+                fuelAddBtn.textContent = 'Update Record';
+                fuelEditIndex = idx;
+                updateFuelLive();
+                document.querySelector('#tab3 .card').scrollIntoView({ behavior: 'smooth' });
+            };
+
+            window.deleteFuel = function(idx) {
+                if (fuelEditIndex === idx) resetFuelForm();
+                else if (fuelEditIndex !== null && idx < fuelEditIndex) fuelEditIndex--;
+                fuelRecords.splice(idx, 1);
+                saveFuelRecords();
+                renderFuel();
+                showToast('🗑️ Fuel record deleted');
+            };
+
+            window.exportFuelJSON = function() {
+                const blob = new Blob([JSON.stringify(fuelRecords, null, 2)], { type: 'application/json' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = `fuel-records-backup-${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                URL.revokeObjectURL(a.href);
+                showToast('📤 Fuel export done!');
+            };
+
+            window.importFuelJSON = function() {
+                document.getElementById('fuelFileInput').click();
+                document.getElementById('fuelFileInput').onchange = function(e) {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = function(ev) {
+                        try {
+                            const data = JSON.parse(ev.target.result);
+                            if (Array.isArray(data)) { fuelRecords = data;
+                                saveFuelRecords();
+                                renderFuel();
+                                resetFuelForm();
+                                showToast('✅ Fuel data restored!'); } else { alert('Invalid JSON format!'); }
+                        } catch { alert('File parse nahi ho saki!'); }
+                    };
+                    reader.readAsText(file);
+                    this.value = '';
+                };
+            };
+
+            window.clearAllFuel = function() {
+                if (fuelRecords.length === 0) { alert('Koi fuel record mojood nahi hai!'); return; }
+                if (!confirm('Kya aap waqai saare fuel records delete karna chahte hain? Ye action undo nahi ho sakta.')) return;
+                fuelRecords = [];
+                saveFuelRecords();
+                renderFuel();
+                resetFuelForm();
+                showToast('🗑️ Sare fuel records delete kar diye gaye.');
+            };
+
+            fuelAmount.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') { e.preventDefault();
+                    addFuelRecord(); }
+            });
+
+            // ─────────────────────────────────────────────
+            //  TAB 4 — BIKE INFO (Oil + Notes)
+            // ─────────────────────────────────────────────
+            const BIKE_KEYS = {
+                oil: 'bikeOilRecords_v2',
+                notes: 'bikeNotes_v1'
+            };
+
+            let oilRecords = JSON.parse(localStorage.getItem(BIKE_KEYS.oil)) || [];
+            let bikeNotes = JSON.parse(localStorage.getItem(BIKE_KEYS.notes)) || [];
+            let oilEditIndex = null;
+            let noteEditIndex = null;
+
+            // Migrate purane oil records ({km}) → naye format ({start, end})
+            oilRecords = oilRecords.map(rec => {
+                if (rec.start === undefined && rec.km !== undefined) {
+                    const k = Number(rec.km);
+                    return { date: rec.date, start: k, end: k, note: rec.note || '' };
+                }
+                return rec;
+            });
+            try { localStorage.setItem(BIKE_KEYS.oil, JSON.stringify(oilRecords)); } catch(e) {}
+
+            const oilDate = document.getElementById('oilDate');
+            const oilStart = document.getElementById('oilStart');
+            const oilEnd = document.getElementById('oilEnd');
+            const oilNote = document.getElementById('oilNote');
+            const oilAddBtn = document.getElementById('oilAddUpdateBtn');
+            const oilTbody = document.getElementById('oilTbody');
+            const oilCount = document.getElementById('oilCount');
+            const notesList = document.getElementById('notesList');
+            const noteInput = document.getElementById('noteInput');
+            const noteCount = document.getElementById('noteCount');
+            const noteAddBtn = document.getElementById('noteAddUpdateBtn');
+
+            function saveOil() {
+                localStorage.setItem(BIKE_KEYS.oil, JSON.stringify(oilRecords));
+            }
+
+            function saveNotes() {
+                localStorage.setItem(BIKE_KEYS.notes, JSON.stringify(bikeNotes));
+            }
+
+            function renderOil() {
+                oilTbody.innerHTML = '';
+                oilRecords.forEach((rec, idx) => {
+                    const tr = document.createElement('tr');
+                    const startNum = rec.start !== undefined && rec.start !== null ? Number(rec.start) : null;
+                    const endNum = rec.end !== undefined && rec.end !== null ? Number(rec.end) : null;
+                    const gap = (startNum !== null && endNum !== null) ? (endNum - startNum) : null;
+                    tr.innerHTML = `
+                        <td>${formatDate(rec.date)}</td>
+                        <td>${startNum !== null ? startNum : '—'}</td>
+                        <td>${endNum !== null ? endNum : '—'}</td>
+                        <td>${gap !== null && gap >= 0 ? '+' + gap + ' KM' : '—'}</td>
+                        <td class="note-cell">${rec.note ? escapeHtml(rec.note) : '—'}</td>
+                        <td class="actions-cell">
+                            <button class="oil-edit-btn" onclick="editOil(${idx})" title="Edit"><i class="fas fa-pen"></i></button>
+                            <button class="delete-btn" onclick="deleteOil(${idx})" title="Delete"><i class="fas fa-trash"></i></button>
+                        </td>
+                    `;
+                    oilTbody.appendChild(tr);
+                });
+                oilCount.textContent = oilRecords.length;
+
+                const totalGap = oilRecords.reduce((sum, r) => {
+                    if (r.start !== undefined && r.start !== null && r.end !== undefined && r.end !== null) {
+                        const g = Number(r.end) - Number(r.start);
+                        return sum + (g > 0 ? g : 0);
+                    }
+                    return sum;
+                }, 0);
+                document.getElementById('oilTotalGap').textContent = totalGap.toLocaleString('en-PK') + ' KM';
+            }
+
+            window.addOilRecord = function() {
+                const date = oilDate.value || new Date().toISOString().split('T')[0];
+                const startVal = oilStart.value;
+                const endVal = oilEnd.value;
+                const note = oilNote.value.trim();
+
+                if (startVal === '') { alert('Start Reading daalein!'); return; }
+
+                const start = parseInt(startVal, 10);
+                const end = endVal !== '' ? parseInt(endVal, 10) : null;
+
+                if (isNaN(start) || start < 0) { alert('Valid Start Reading daalein!'); return; }
+                if (end !== null && (isNaN(end) || end < 0)) { alert('Valid End Reading daalein!'); return; }
+                if (end !== null && end < start) { alert('End Reading Start se kam nahi ho sakti!'); return; }
+
+                const data = { date, start, end, note };
+                if (oilEditIndex !== null) { oilRecords[oilEditIndex] = data; } else { oilRecords.push(data); }
+                saveOil();
+                renderOil();
+                resetOilForm();
+                showToast('✅ Oil change record saved!');
+            };
+
+            function resetOilForm() {
+                setToday(oilDate);
+                oilStart.value = '';
+                oilEnd.value = '';
+                oilNote.value = '';
+                oilAddBtn.textContent = 'Add Oil Change';
+                oilEditIndex = null;
+            }
+
+            window.editOil = function(idx) {
+                const rec = oilRecords[idx];
+                oilDate.value = rec.date || '';
+                oilStart.value = rec.start !== undefined && rec.start !== null ? rec.start : '';
+                oilEnd.value = rec.end !== undefined && rec.end !== null ? rec.end : '';
+                oilNote.value = rec.note || '';
+                oilAddBtn.textContent = 'Update Record';
+                oilEditIndex = idx;
+                document.querySelector('#tab4 .card').scrollIntoView({ behavior: 'smooth' });
+            };
+
+            window.deleteOil = function(idx) {
+                if (oilEditIndex === idx) resetOilForm();
+                else if (oilEditIndex !== null && idx < oilEditIndex) oilEditIndex--;
+                oilRecords.splice(idx, 1);
+                saveOil();
+                renderOil();
+                showToast('🗑️ Oil record deleted');
+            };
+
+            // ---------- NOTES (with edit) ----------
+            function renderNotes() {
+                notesList.innerHTML = '';
+                if (bikeNotes.length === 0) {
+                    notesList.innerHTML = '<div class="empty-note">Abhi koi note nahi hai — apni bike ke bare mein likhna shuru karein 🏍️</div>';
+                } else {
+                    bikeNotes.forEach((n, idx) => {
+                        const div = document.createElement('div');
+                        div.className = 'note-item' + (noteEditIndex === idx ? ' editing' : '');
+                        const noteDate = n.date ? formatDate(String(n.date).split('T')[0]) : '';
+                        div.innerHTML = `
+                            <div class="note-content">
+                                <div class="note-text">${escapeHtml(n.text)}</div>
+                                ${noteDate ? `<div class="note-meta"><i class="far fa-calendar-alt"></i> ${noteDate}${noteEditIndex === idx ? ' • ✏️ Editing…' : ''}</div>` : ''}
+                            </div>
+                            <button class="note-edit" onclick="editNote(${idx})" title="Edit"><i class="fas fa-pen"></i></button>
+                            <button class="note-del" onclick="deleteNote(${idx})" title="Delete"><i class="fas fa-trash"></i></button>
+                        `;
+                        notesList.appendChild(div);
+                    });
+                }
+                noteCount.textContent = bikeNotes.length;
+            }
+
+            window.addNote = function() {
+                const text = noteInput.value.trim();
+                if (!text) { alert('Pehle note likhein!'); return; }
+
+                if (noteEditIndex !== null) {
+                    // Update existing note text (date same rahegi)
+                    bikeNotes[noteEditIndex].text = text;
+                    saveNotes();
+                    renderNotes();
+                    resetNoteForm();
+                    showToast('✏️ Note updated!');
+                } else {
+                    bikeNotes.unshift({ text: text, date: new Date().toISOString() });
+                    saveNotes();
+                    renderNotes();
+                    noteInput.value = '';
+                    showToast('📝 Note saved!');
+                }
+            };
+
+            window.editNote = function(idx) {
+                const n = bikeNotes[idx];
+                noteInput.value = n.text;
+                noteEditIndex = idx;
+                noteAddBtn.innerHTML = '<i class="fas fa-save"></i> Update Note';
+                renderNotes();
+                // form tak scroll
+                const cards = document.querySelectorAll('#tab4 .card');
+                if (cards[2]) cards[2].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                setTimeout(() => noteInput.focus(), 300);
+            };
+
+            function resetNoteForm() {
+                noteInput.value = '';
+                noteEditIndex = null;
+                noteAddBtn.innerHTML = '<i class="fas fa-plus"></i> Add Note';
+            }
+
+            window.deleteNote = function(idx) {
+                if (noteEditIndex === idx) {
+                    resetNoteForm();
+                } else if (noteEditIndex !== null && idx < noteEditIndex) {
+                    noteEditIndex--;
+                }
+                bikeNotes.splice(idx, 1);
+                saveNotes();
+                renderNotes();
+                showToast('🗑️ Note deleted');
+            };
+
+            // ---------- Bike Backup ----------
+            window.exportBikeJSON = function() {
+                const data = { oilRecords: oilRecords, notes: bikeNotes };
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = `bike-info-backup-${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                URL.revokeObjectURL(a.href);
+                showToast('📤 Bike info export done!');
+            };
+
+            window.importBikeJSON = function() {
+                const inp = document.getElementById('bikeFileInput');
+                inp.click();
+                inp.onchange = function(e) {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = function(ev) {
+                        try {
+                            const data = JSON.parse(ev.target.result);
+                            if (Array.isArray(data)) {
+                                oilRecords = data;
+                            } else if (data && typeof data === 'object') {
+                                if (Array.isArray(data.oilRecords)) oilRecords = data.oilRecords;
+                                if (Array.isArray(data.notes)) bikeNotes = data.notes;
+                            } else {
+                                alert('Invalid JSON format!');
+                                return;
+                            }
+                            // migrate
+                            oilRecords = oilRecords.map(rec => {
+                                if (rec.start === undefined && rec.km !== undefined) {
+                                    const k = Number(rec.km);
+                                    return { date: rec.date, start: k, end: k, note: rec.note || '' };
+                                }
+                                return rec;
+                            });
+                            saveOil();
+                            saveNotes();
+                            renderOil();
+                            resetNoteForm();
+                            renderNotes();
+                            resetOilForm();
+                            showToast('✅ Bike info restored!');
+                        } catch { alert('File parse nahi ho saki!'); }
+                    };
+                    reader.readAsText(file);
+                    this.value = '';
+                };
+            };
+
+            window.clearAllBike = function() {
+                if (oilRecords.length === 0 && bikeNotes.length === 0) { alert('Koi bike data mojood nahi hai!'); return; }
+                if (!confirm('Kya aap waqai saare oil change records aur notes delete karna chahte hain? Ye action undo nahi ho sakta.')) return;
+                oilRecords = [];
+                bikeNotes = [];
+                saveOil();
+                saveNotes();
+                renderOil();
+                resetOilForm();
+                resetNoteForm();
+                renderNotes();
+                showToast('🗑️ Sare bike records delete kar diye gaye.');
+            };
+
+            // ─────────────────────────────────────────────
+            //  INIT
+            // ─────────────────────────────────────────────
+            function init() {
+                loadRideSettings();
+                if (!commissionInput.value || isNaN(parseFloat(commissionInput.value))) commissionInput.value = 11;
+
+                setToday(kmDate);
+                renderKM();
+
+                loadFuelSettings();
+                setToday(fuelDate);
+                renderFuel();
+                updateFuelLive();
+
+                setToday(oilDate);
+                renderOil();
+                renderNotes();
+
+                if (!bikeAvgInput.value) setTimeout(() => bikeAvgInput.focus(), 500);
+
+                console.log('🏍️ Bike Tools v3.0 PWA loaded!');
+                console.log('📌 Tabs: Ride Profit | KM Tracking | Fuel Range | Bike Info');
+            }
+
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('✅ SW registered:', reg.scope))
+                    .catch(err => console.log('⚠️ SW registration failed:', err));
+            }
+
+            init();
+
+        })();
+    </script>
+
+</body>
+</html>
