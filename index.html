@@ -57,16 +57,9 @@
             --tab4-bg: #F0FDFA;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html {
-            scroll-behavior: smooth;
-            -webkit-tap-highlight-color: transparent;
-        }
+        html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: var(--font);
@@ -84,10 +77,8 @@
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             pointer-events: none;
             z-index: 0;
             background:
@@ -107,1080 +98,498 @@
             padding-bottom: 20px;
         }
 
-        .app-header {
-            text-align: center;
-            padding: 16px 16px 4px;
-        }
+        .app-header { text-align: center; padding: 16px 16px 4px; }
         .app-header .logo-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 60px; height: 60px;
             background: linear-gradient(135deg, #FF5A1F 0%, #FF7B3D 50%, #FF5A1F 100%);
-            border-radius: 18px;
-            font-size: 28px;
-            color: #fff;
+            border-radius: 18px; font-size: 28px; color: #fff;
             box-shadow: 0 8px 28px rgba(255, 90, 31, 0.30);
             margin-bottom: 8px;
         }
-        .app-header h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text);
-            letter-spacing: -0.3px;
-            margin: 0;
-        }
-        .app-header .subtitle {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-top: 2px;
-            font-weight: 500;
-        }
+        .app-header h1 { font-size: 1.5rem; font-weight: 700; color: var(--text); letter-spacing: -0.3px; margin: 0; }
+        .app-header .subtitle { font-size: 0.85rem; color: var(--text-secondary); margin-top: 2px; font-weight: 500; }
 
         .tabs {
-            display: flex;
-            gap: 6px;
+            display: flex; gap: 6px;
             background: rgba(255, 255, 255, 0.70);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            padding: 6px;
-            border-radius: var(--radius-lg);
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            padding: 6px; border-radius: var(--radius-lg);
             border: 1px solid var(--border);
             box-shadow: var(--shadow-sm);
             margin-bottom: 4px;
         }
         .tab-btn {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px 8px;
-            border: none;
-            border-radius: var(--radius);
-            background: transparent;
-            font-family: var(--font);
-            font-weight: 600;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            cursor: pointer;
+            flex: 1; display: flex; align-items: center; justify-content: center;
+            gap: 8px; padding: 12px 8px; border: none;
+            border-radius: var(--radius); background: transparent;
+            font-family: var(--font); font-weight: 600; font-size: 0.8rem;
+            color: var(--text-secondary); cursor: pointer;
             transition: var(--transition);
             -webkit-tap-highlight-color: transparent;
-            user-select: none;
-            white-space: nowrap;
+            user-select: none; white-space: nowrap;
         }
-        .tab-btn i {
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-        .tab-btn:hover {
-            background: rgba(0, 0, 0, 0.03);
-            color: var(--text);
-        }
-        .tab-btn.active {
-            background: #fff;
-            color: var(--text);
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-        }
-        .tab-btn.active i {
-            transform: scale(1.05);
-        }
-        .tab-btn[data-tab="tab1"].active {
-            color: var(--tab1-color);
-            box-shadow: 0 2px 12px rgba(255, 90, 31, 0.12);
-        }
-        .tab-btn[data-tab="tab2"].active {
-            color: var(--tab2-color);
-            box-shadow: 0 2px 12px rgba(0, 185, 86, 0.12);
-        }
-        .tab-btn[data-tab="tab3"].active {
-            color: var(--tab3-color);
-            box-shadow: 0 2px 12px rgba(79, 70, 229, 0.12);
-        }
-        .tab-btn[data-tab="tab4"].active {
-            color: var(--tab4-color);
-            box-shadow: 0 2px 12px rgba(13, 148, 136, 0.12);
-        }
+        .tab-btn i { font-size: 1rem; transition: var(--transition); }
+        .tab-btn:hover { background: rgba(0, 0, 0, 0.03); color: var(--text); }
+        .tab-btn.active { background: #fff; color: var(--text); box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06); }
+        .tab-btn.active i { transform: scale(1.05); }
+        .tab-btn[data-tab="tab1"].active { color: var(--tab1-color); box-shadow: 0 2px 12px rgba(255, 90, 31, 0.12); }
+        .tab-btn[data-tab="tab2"].active { color: var(--tab2-color); box-shadow: 0 2px 12px rgba(0, 185, 86, 0.12); }
+        .tab-btn[data-tab="tab3"].active { color: var(--tab3-color); box-shadow: 0 2px 12px rgba(79, 70, 229, 0.12); }
+        .tab-btn[data-tab="tab4"].active { color: var(--tab4-color); box-shadow: 0 2px 12px rgba(13, 148, 136, 0.12); }
 
-        .tab-content {
-            display: none;
-            animation: fadeSlideIn 0.35s ease-out;
-        }
-        .tab-content.active {
-            display: block;
-        }
+        .tab-content { display: none; animation: fadeSlideIn 0.35s ease-out; }
+        .tab-content.active { display: block; }
 
         @keyframes fadeSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(12px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .card {
-            background: var(--card-bg);
-            border-radius: var(--radius-lg);
-            padding: 18px 20px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            transition: var(--transition);
+            background: var(--card-bg); border-radius: var(--radius-lg);
+            padding: 18px 20px; box-shadow: var(--shadow);
+            border: 1px solid var(--border); transition: var(--transition);
         }
-        .card:hover {
-            box-shadow: var(--shadow-lg);
-        }
+        .card:hover { box-shadow: var(--shadow-lg); }
         .card-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 14px;
-            padding-bottom: 12px;
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 14px; padding-bottom: 12px;
             border-bottom: 1px solid var(--border);
         }
         .card-header .card-icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 17px;
-            flex-shrink: 0;
+            width: 38px; height: 38px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 17px; flex-shrink: 0;
         }
-        .card-header h3 {
-            font-size: 1rem;
-            font-weight: 650;
-            color: var(--text);
-            letter-spacing: -0.2px;
-        }
+        .card-header h3 { font-size: 1rem; font-weight: 650; color: var(--text); letter-spacing: -0.2px; }
         .card-header .badge {
-            font-size: 0.7rem;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-            margin-left: auto;
-            background: var(--primary-light);
-            color: var(--primary-dark);
+            font-size: 0.7rem; padding: 4px 10px; border-radius: 20px;
+            font-weight: 600; letter-spacing: 0.3px; margin-left: auto;
+            background: var(--primary-light); color: var(--primary-dark);
         }
 
-        .form-row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .form-group {
-            flex: 1;
-            min-width: 130px;
-            margin-bottom: 8px;
-        }
-        .form-group.full-width {
-            flex: 1 1 100%;
-            min-width: 100%;
-        }
+        .form-row { display: flex; gap: 10px; flex-wrap: wrap; }
+        .form-group { flex: 1; min-width: 130px; margin-bottom: 8px; }
+        .form-group.full-width { flex: 1 1 100%; min-width: 100%; }
         .form-group label {
-            display: block;
-            font-size: 0.78rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            margin-bottom: 5px;
-            letter-spacing: 0.2px;
-            text-transform: uppercase;
+            display: block; font-size: 0.78rem; font-weight: 600;
+            color: var(--text-secondary); margin-bottom: 5px;
+            letter-spacing: 0.2px; text-transform: uppercase;
         }
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 12px 14px;
-            border: 2px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 1rem;
-            font-family: var(--font);
-            font-weight: 500;
-            color: var(--text);
-            background: #FAFAFB;
-            transition: var(--transition);
-            outline: none;
-            -webkit-appearance: none;
-            appearance: none;
+        .form-group input, .form-group select {
+            width: 100%; padding: 12px 14px;
+            border: 2px solid var(--border); border-radius: var(--radius-sm);
+            font-size: 1rem; font-family: var(--font); font-weight: 500;
+            color: var(--text); background: #FAFAFB;
+            transition: var(--transition); outline: none;
+            -webkit-appearance: none; appearance: none;
         }
-        .form-group input:focus,
-        .form-group select:focus {
-            border-color: var(--primary);
-            background: #fff;
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--primary); background: #fff;
             box-shadow: 0 0 0 4px var(--primary-glow);
         }
-        .form-group input::placeholder {
-            color: #C5C5D2;
-            font-weight: 400;
-            font-size: 0.9rem;
-        }
-        .input-with-icon {
-            position: relative;
-        }
-        .input-with-icon input {
-            padding-left: 40px;
-        }
+        .form-group input::placeholder { color: #C5C5D2; font-weight: 400; font-size: 0.9rem; }
+        .input-with-icon { position: relative; }
+        .input-with-icon input { padding-left: 40px; }
         .input-with-icon .input-icon {
-            position: absolute;
-            left: 13px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 15px;
-            color: #B0B0C0;
-            pointer-events: none;
-            transition: var(--transition);
+            position: absolute; left: 13px; top: 50%;
+            transform: translateY(-50%); font-size: 15px;
+            color: #B0B0C0; pointer-events: none; transition: var(--transition);
         }
         .input-with-icon input:focus~.input-icon,
-        .input-with-icon input:focus+.input-icon {
-            color: var(--primary);
-        }
+        .input-with-icon input:focus+.input-icon { color: var(--primary); }
 
         .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-family: var(--font);
-            font-weight: 650;
-            font-size: 1rem;
-            padding: 14px 24px;
-            border-radius: var(--radius);
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-            outline: none;
-            letter-spacing: 0.2px;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
+            display: inline-flex; align-items: center; justify-content: center;
+            gap: 8px; font-family: var(--font); font-weight: 650;
+            font-size: 1rem; padding: 14px 24px; border-radius: var(--radius);
+            cursor: pointer; transition: var(--transition);
+            border: none; outline: none; letter-spacing: 0.2px;
+            -webkit-tap-highlight-color: transparent; user-select: none;
         }
-        .btn:active {
-            transform: scale(0.97);
-        }
+        .btn:active { transform: scale(0.97); }
 
         .btn-calculate {
             width: 100%;
             background: linear-gradient(135deg, #FF5A1F 0%, #FF6B2F 50%, #FF7B3D 100%);
-            color: #fff;
-            font-size: 1.1rem;
-            font-weight: 700;
-            padding: 16px 24px;
-            border-radius: var(--radius);
+            color: #fff; font-size: 1.1rem; font-weight: 700;
+            padding: 16px 24px; border-radius: var(--radius);
             box-shadow: 0 6px 24px rgba(255, 90, 31, 0.30);
-            letter-spacing: 0.4px;
-            position: relative;
-            overflow: hidden;
+            letter-spacing: 0.4px; position: relative; overflow: hidden;
         }
-        .btn-calculate:hover {
-            box-shadow: 0 10px 32px rgba(255, 90, 31, 0.40);
-            transform: translateY(-1px);
-        }
-        .btn-calculate:active {
-            transform: scale(0.98) translateY(0);
-            box-shadow: 0 4px 16px rgba(255, 90, 31, 0.25);
-        }
+        .btn-calculate:hover { box-shadow: 0 10px 32px rgba(255, 90, 31, 0.40); transform: translateY(-1px); }
+        .btn-calculate:active { transform: scale(0.98) translateY(0); box-shadow: 0 4px 16px rgba(255, 90, 31, 0.25); }
         .btn-calculate::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
+            content: ''; position: absolute; top: -50%; left: -50%;
+            width: 200%; height: 200%;
             background: radial-gradient(circle, rgba(255, 255, 255, 0.20) 0%, transparent 60%);
-            opacity: 0;
-            transition: opacity 0.4s;
+            opacity: 0; transition: opacity 0.4s;
         }
-        .btn-calculate:hover::after {
-            opacity: 1;
-        }
+        .btn-calculate:hover::after { opacity: 1; }
 
         .btn-outline {
-            width: 100%;
-            background: #fff;
-            color: var(--danger);
-            border: 2px solid #FECACA;
-            font-weight: 600;
-            font-size: 0.9rem;
-            padding: 12px 20px;
-            border-radius: var(--radius);
+            width: 100%; background: #fff; color: var(--danger);
+            border: 2px solid #FECACA; font-weight: 600;
+            font-size: 0.9rem; padding: 12px 20px; border-radius: var(--radius);
         }
         .btn-outline:hover {
-            background: var(--danger-bg);
-            border-color: var(--danger);
+            background: var(--danger-bg); border-color: var(--danger);
             box-shadow: 0 4px 16px rgba(239, 68, 68, 0.10);
         }
 
-        .btn-sm {
-            padding: 8px 14px;
-            font-size: 0.8rem;
-            border-radius: 20px;
-        }
+        .btn-sm { padding: 8px 14px; font-size: 0.8rem; border-radius: 20px; }
         .btn-add {
-            background: var(--tab2-color);
-            color: #fff;
-            width: 100%;
-            margin-top: 4px;
+            background: var(--tab2-color); color: #fff; width: 100%; margin-top: 4px;
             box-shadow: 0 4px 14px rgba(0, 185, 86, 0.25);
         }
-        .btn-add:hover {
-            background: #009944;
-            box-shadow: 0 6px 18px rgba(0, 185, 86, 0.35);
-        }
+        .btn-add:hover { background: #009944; box-shadow: 0 6px 18px rgba(0, 185, 86, 0.35); }
         .btn-fuel-add {
-            background: var(--tab3-color);
-            color: #fff;
-            width: 100%;
-            margin-top: 4px;
+            background: var(--tab3-color); color: #fff; width: 100%; margin-top: 4px;
             box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25);
         }
-        .btn-fuel-add:hover {
-            background: #4338CA;
-            box-shadow: 0 6px 18px rgba(79, 70, 229, 0.35);
-        }
+        .btn-fuel-add:hover { background: #4338CA; box-shadow: 0 6px 18px rgba(79, 70, 229, 0.35); }
 
-        .btn-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .btn-group .btn-sm {
-            flex: 1;
-            min-width: 100px;
-            text-align: center;
-        }
-        .btn-export {
-            background: #1b5e20;
-            color: #fff;
-        }
-        .btn-export:hover {
-            background: #14521a;
-        }
-        .btn-import {
-            background: #FF6F00;
-            color: #fff;
-        }
-        .btn-import:hover {
-            background: #e65c00;
-        }
-        .btn-clear {
-            background: #d32f2f;
-            color: #fff;
-        }
-        .btn-clear:hover {
-            background: #b71c1c;
-        }
+        .btn-group { display: flex; flex-wrap: wrap; gap: 8px; }
+        .btn-group .btn-sm { flex: 1; min-width: 100px; text-align: center; }
+        .btn-export { background: #1b5e20; color: #fff; }
+        .btn-export:hover { background: #14521a; }
+        .btn-import { background: #FF6F00; color: #fff; }
+        .btn-import:hover { background: #e65c00; }
+        .btn-clear { background: #d32f2f; color: #fff; }
+        .btn-clear:hover { background: #b71c1c; }
 
-        .results-card {
-            display: none;
-            overflow: hidden;
-            animation: fadeSlideIn 0.4s ease-out;
-        }
-        .results-card.show {
-            display: block;
-        }
-        .results-card.profit {
-            border-left: 5px solid var(--success);
-            background: linear-gradient(135deg, #ffffff 0%, #fafffe 100%);
-        }
-        .results-card.loss {
-            border-left: 5px solid var(--danger);
-            background: linear-gradient(135deg, #ffffff 0%, #fffafa 100%);
-        }
+        .results-card { display: none; overflow: hidden; animation: fadeSlideIn 0.4s ease-out; }
+        .results-card.show { display: block; }
+        .results-card.profit { border-left: 5px solid var(--success); background: linear-gradient(135deg, #ffffff 0%, #fafffe 100%); }
+        .results-card.loss { border-left: 5px solid var(--danger); background: linear-gradient(135deg, #ffffff 0%, #fffafa 100%); }
 
         .result-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px dashed #f0f0f0;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 0; border-bottom: 1px dashed #f0f0f0;
         }
-        .result-row:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
+        .result-row:last-child { border-bottom: none; padding-bottom: 0; }
         .result-row .result-label {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 7px;
+            font-size: 0.9rem; color: var(--text-secondary);
+            font-weight: 500; display: flex; align-items: center; gap: 7px;
         }
-        .result-row .result-label i {
-            width: 20px;
-            text-align: center;
-            font-size: 13px;
-        }
-        .result-row .result-value {
-            font-weight: 700;
-            font-size: 1rem;
-            color: var(--text);
-        }
-        .result-row .result-value.negative {
-            color: var(--danger);
-        }
-        .result-row .result-value.positive {
-            color: var(--success);
-        }
+        .result-row .result-label i { width: 20px; text-align: center; font-size: 13px; }
+        .result-row .result-value { font-weight: 700; font-size: 1rem; color: var(--text); }
+        .result-row .result-value.negative { color: var(--danger); }
+        .result-row .result-value.positive { color: var(--success); }
 
         .result-row.net-profit-highlight {
-            background: #FFFDFB;
-            border: 2px solid #FDE8D0;
-            border-radius: var(--radius-sm);
-            padding: 14px 16px;
-            margin: 8px 0;
-            border-bottom: 2px solid #FDE8D0;
+            background: #FFFDFB; border: 2px solid #FDE8D0;
+            border-radius: var(--radius-sm); padding: 14px 16px;
+            margin: 8px 0; border-bottom: 2px solid #FDE8D0;
         }
-        .result-row.net-profit-highlight .result-label {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--text);
-        }
-        .result-row.net-profit-highlight .result-value {
-            font-size: 1.2rem;
-            font-weight: 800;
-        }
-        .results-card.profit .result-row.net-profit-highlight {
-            background: #f9fefb;
-            border-color: #A7F3D0;
-        }
-        .results-card.loss .result-row.net-profit-highlight {
-            background: #fffcfc;
-            border-color: #FECACA;
-        }
-
-        .result-row.per-km-row .result-label {
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-        }
-        .result-row.per-km-row .result-value {
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
+        .result-row.net-profit-highlight .result-label { font-size: 1rem; font-weight: 700; color: var(--text); }
+        .result-row.net-profit-highlight .result-value { font-size: 1.2rem; font-weight: 800; }
+        .results-card.profit .result-row.net-profit-highlight { background: #f9fefb; border-color: #A7F3D0; }
+        .results-card.loss .result-row.net-profit-highlight { background: #fffcfc; border-color: #FECACA; }
+        .result-row.per-km-row .result-label { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); }
+        .result-row.per-km-row .result-value { font-size: 0.9rem; font-weight: 600; }
 
         .result-verdict {
-            text-align: center;
-            padding: 14px 16px;
-            margin-top: 10px;
-            border-radius: var(--radius-sm);
-            font-weight: 700;
-            font-size: 1.05rem;
-            letter-spacing: 0.3px;
+            text-align: center; padding: 14px 16px; margin-top: 10px;
+            border-radius: var(--radius-sm); font-weight: 700;
+            font-size: 1.05rem; letter-spacing: 0.3px;
         }
-        .result-verdict.profit-verdict {
-            background: var(--success-bg);
-            color: #065F46;
-            border: 2px solid var(--success-border);
-        }
-        .result-verdict.loss-verdict {
-            background: var(--danger-bg);
-            color: #991B1B;
-            border: 2px solid var(--danger-border);
-        }
-        .result-verdict .verdict-emoji {
-            font-size: 1.6rem;
-            display: block;
-            margin-bottom: 4px;
-        }
+        .result-verdict.profit-verdict { background: var(--success-bg); color: #065F46; border: 2px solid var(--success-border); }
+        .result-verdict.loss-verdict { background: var(--danger-bg); color: #991B1B; border: 2px solid var(--danger-border); }
+        .result-verdict .verdict-emoji { font-size: 1.6rem; display: block; margin-bottom: 4px; }
 
-        .table-wrapper {
-            overflow-x: auto;
-            border-radius: var(--radius-sm);
-            margin-top: 2px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-        }
+        .table-wrapper { overflow-x: auto; border-radius: var(--radius-sm); margin-top: 2px; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
         table thead th {
-            background: var(--tab2-color);
-            color: #fff;
-            padding: 12px 8px;
-            font-weight: 600;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            text-align: center;
+            background: var(--tab2-color); color: #fff; padding: 12px 8px;
+            font-weight: 600; font-size: 0.75rem;
+            text-transform: uppercase; letter-spacing: 0.3px; text-align: center;
         }
         table tbody td {
-            padding: 10px 8px;
-            text-align: center;
-            border-bottom: 1px solid #e0f2e9;
-            color: #333;
-            font-weight: 500;
-            font-size: 0.85rem;
+            padding: 10px 8px; text-align: center;
+            border-bottom: 1px solid #e0f2e9; color: #333;
+            font-weight: 500; font-size: 0.85rem;
         }
-        table tbody tr:last-child td {
-            border-bottom: none;
-        }
-        table tbody tr:hover td {
-            background: #f5fcf7;
-        }
+        table tbody tr:last-child td { border-bottom: none; }
+        table tbody tr:hover td { background: #f5fcf7; }
+        .fuel-table thead th { background: var(--tab3-color); }
+        .fuel-table tbody tr:hover td { background: #f0f0ff; }
 
-        .fuel-table thead th {
-            background: var(--tab3-color);
-        }
-        .fuel-table tbody tr:hover td {
-            background: #f0f0ff;
-        }
-
-        .actions-cell {
-            display: flex;
-            gap: 6px;
-            justify-content: center;
-        }
+        .actions-cell { display: flex; gap: 6px; justify-content: center; }
         .actions-cell button {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            color: #fff;
-            transition: 0.2s;
+            width: 30px; height: 30px; border-radius: 50%;
+            border: none; cursor: pointer; display: flex;
+            align-items: center; justify-content: center;
+            font-size: 13px; color: #fff; transition: 0.2s;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
         }
-        .actions-cell .edit-btn {
-            background: var(--tab2-color);
-        }
-        .actions-cell .edit-btn:hover {
-            background: #009944;
-            transform: scale(1.08);
-        }
-        .actions-cell .delete-btn {
-            background: #FF5252;
-        }
-        .actions-cell .delete-btn:hover {
-            background: #d32f2f;
-            transform: scale(1.08);
-        }
-        .actions-cell .fuel-edit-btn {
-            background: var(--tab3-color);
-        }
-        .actions-cell .fuel-edit-btn:hover {
-            background: #4338CA;
-            transform: scale(1.08);
-        }
+        .actions-cell .edit-btn { background: var(--tab2-color); }
+        .actions-cell .edit-btn:hover { background: #009944; transform: scale(1.08); }
+        .actions-cell .delete-btn { background: #FF5252; }
+        .actions-cell .delete-btn:hover { background: #d32f2f; transform: scale(1.08); }
+        .actions-cell .fuel-edit-btn { background: var(--tab3-color); }
+        .actions-cell .fuel-edit-btn:hover { background: #4338CA; transform: scale(1.08); }
 
-        .tab-fuel .card {
-            border-left-color: var(--tab3-color);
-            border-left-width: 5px;
+        .tab-fuel .card { border-left-color: var(--tab3-color); border-left-width: 5px; }
+        .tab-fuel .card-header .card-icon { background: var(--tab3-bg); color: var(--tab3-color); }
+        .tab-fuel .card-header .badge { background: var(--tab3-bg); color: var(--tab3-color); }
+        .tab-fuel .form-group input:focus { border-color: var(--tab3-color); box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15); }
+        .tab-fuel .input-with-icon input:focus~.input-icon,
+        .tab-fuel .input-with-icon input:focus+.input-icon { color: var(--tab3-color); }
+
+        /* ⭐ NEW: Meter row — 2 boxes side by side */
+        .meter-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
         }
-        .tab-fuel .card-header .card-icon {
+        .meter-box {
+            flex: 1;
+            min-width: 130px;
             background: var(--tab3-bg);
-            color: var(--tab3-color);
+            border: 2px solid rgba(79, 70, 229, 0.15);
+            border-radius: var(--radius-sm);
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-        .tab-fuel .card-header .badge {
-            background: var(--tab3-bg);
-            color: var(--tab3-color);
+        .meter-box label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
         }
-        .tab-fuel .form-group input:focus {
+        .meter-box input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid rgba(79, 70, 229, 0.25);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            font-family: var(--font);
+            font-weight: 700;
+            color: var(--text);
+            background: #fff;
+            outline: none;
+            transition: var(--transition);
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .meter-box input:focus {
             border-color: var(--tab3-color);
             box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
         }
-        .tab-fuel .input-with-icon input:focus~.input-icon,
-        .tab-fuel .input-with-icon input:focus+.input-icon {
-            color: var(--tab3-color);
+        .meter-box input::placeholder {
+            color: #C5C5D2;
+            font-weight: 400;
+            font-size: 0.9rem;
         }
-
-        .fuel-result-box {
-            background: var(--tab3-bg);
-            border-radius: var(--radius-sm);
-            padding: 16px 18px;
-            margin-top: 14px;
-            text-align: center;
-            border: 2px solid rgba(79, 70, 229, 0.15);
-        }
-        .fuel-result-box .big-number {
-            font-size: 2.2rem;
+        .meter-box.display .meter-value {
+            font-size: 1.4rem;
             font-weight: 800;
             color: var(--tab3-color);
-        }
-        .fuel-result-box .label {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            font-weight: 600;
-        }
-        .fuel-result-box .sub-detail {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-top: 4px;
-        }
-        .fuel-result-box .fuel-row {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 6px 0;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .fuel-result-box .fuel-row .fuel-item {
+            padding: 8px 0;
+            letter-spacing: -0.3px;
             text-align: center;
+            word-break: break-word;
         }
-        .fuel-result-box .fuel-row .fuel-item .num {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--tab3-color);
-        }
-        .fuel-result-box .fuel-row .fuel-item .lbl {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            font-weight: 500;
+        .meter-box.display .meter-value-empty {
+            color: #A5A5B8;
+            font-weight: 600;
         }
 
         .summary-box {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-            background: var(--bg-secondary);
-            border-radius: var(--radius-sm);
-            padding: 12px 10px;
-            margin-top: 12px;
-            border: 1px dashed var(--border);
-            text-align: center;
+            display: flex; justify-content: space-around; align-items: center;
+            gap: 8px; flex-wrap: wrap; background: var(--bg-secondary);
+            border-radius: var(--radius-sm); padding: 12px 10px;
+            margin-top: 12px; border: 1px dashed var(--border); text-align: center;
         }
         .summary-box .sum-item .num {
-            font-size: 1.15rem;
-            font-weight: 800;
-            color: var(--text);
+            font-size: 1.15rem; font-weight: 800; color: var(--text);
             letter-spacing: -0.2px;
         }
         .summary-box .sum-item .lbl {
-            font-size: 0.68rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            margin-top: 2px;
-            letter-spacing: 0.2px;
-            text-transform: uppercase;
+            font-size: 0.68rem; font-weight: 600; color: var(--text-secondary);
+            margin-top: 2px; letter-spacing: 0.2px; text-transform: uppercase;
         }
-        #tab2 .summary-box {
-            background: var(--tab2-bg);
-            border-color: #C8E6C9;
-        }
-        #tab2 .summary-box .num {
-            color: var(--tab2-color);
-        }
-        #tab3 .summary-box {
-            background: var(--tab3-bg);
-            border-color: #DDE2FF;
-        }
-        #tab3 .summary-box .num {
-            color: var(--tab3-color);
-        }
-        #tab4 .summary-box {
-            background: var(--tab4-bg);
-            border-color: #CCF3EE;
-        }
-        #tab4 .summary-box .num {
-            color: var(--tab4-color);
-        }
+        #tab2 .summary-box { background: var(--tab2-bg); border-color: #C8E6C9; }
+        #tab2 .summary-box .num { color: var(--tab2-color); }
+        #tab3 .summary-box { background: var(--tab3-bg); border-color: #DDE2FF; }
+        #tab3 .summary-box .num { color: var(--tab3-color); }
+        #tab4 .summary-box { background: var(--tab4-bg); border-color: #CCF3EE; }
+        #tab4 .summary-box .num { color: var(--tab4-color); }
 
-        .tab-bike .card {
-            border-left-color: var(--tab4-color);
-            border-left-width: 5px;
-        }
-        .tab-bike .card-header .card-icon {
-            background: var(--tab4-bg);
-            color: var(--tab4-color);
-        }
-        .tab-bike .card-header .badge {
-            background: var(--tab4-bg);
-            color: var(--tab4-color);
-        }
-        .tab-bike .form-group input:focus {
-            border-color: var(--tab4-color);
-            box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.15);
-        }
+        .tab-bike .card { border-left-color: var(--tab4-color); border-left-width: 5px; }
+        .tab-bike .card-header .card-icon { background: var(--tab4-bg); color: var(--tab4-color); }
+        .tab-bike .card-header .badge { background: var(--tab4-bg); color: var(--tab4-color); }
+        .tab-bike .form-group input:focus { border-color: var(--tab4-color); box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.15); }
 
         .btn-oil-add {
-            background: var(--tab4-color);
-            color: #fff;
-            width: 100%;
-            margin-top: 4px;
+            background: var(--tab4-color); color: #fff; width: 100%; margin-top: 4px;
             box-shadow: 0 4px 14px rgba(13, 148, 136, 0.25);
         }
-        .btn-oil-add:hover {
-            background: #0B7C72;
-            box-shadow: 0 6px 18px rgba(13, 148, 136, 0.35);
-        }
+        .btn-oil-add:hover { background: #0B7C72; box-shadow: 0 6px 18px rgba(13, 148, 136, 0.35); }
 
-        .oil-table thead th {
-            background: var(--tab4-color);
-        }
-        .oil-table tbody tr:hover td {
-            background: #F0FDFA;
-        }
-        .oil-table .note-cell {
-            font-size: 0.78rem;
-            color: var(--text-secondary);
-            max-width: 120px;
-            word-break: break-word;
-        }
-        .actions-cell .oil-edit-btn {
-            background: var(--tab4-color);
-        }
-        .actions-cell .oil-edit-btn:hover {
-            background: #0B7C72;
-            transform: scale(1.08);
-        }
+        .oil-table thead th { background: var(--tab4-color); }
+        .oil-table tbody tr:hover td { background: #F0FDFA; }
+        .oil-table .note-cell { font-size: 0.78rem; color: var(--text-secondary); max-width: 120px; word-break: break-word; }
+        .actions-cell .oil-edit-btn { background: var(--tab4-color); }
+        .actions-cell .oil-edit-btn:hover { background: #0B7C72; transform: scale(1.08); }
 
-        .notes-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-top: 12px;
-        }
+        .notes-list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
         .note-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            background: #F5FDFC;
-            border: 1px solid #CCF3EE;
-            border-radius: 10px;
-            padding: 10px 12px;
+            display: flex; align-items: flex-start; gap: 8px;
+            background: #F5FDFC; border: 1px solid #CCF3EE;
+            border-radius: 10px; padding: 10px 12px;
             animation: fadeSlideIn 0.25s ease-out;
         }
         .note-item.editing {
-            border-color: var(--tab4-color);
-            background: #E0F2F1;
+            border-color: var(--tab4-color); background: #E0F2F1;
             box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.10);
         }
-        .note-item .note-content {
-            flex: 1;
-            min-width: 0;
+        .note-item .note-content { flex: 1; min-width: 0; }
+        .note-item .note-text { font-size: 0.88rem; font-weight: 500; color: var(--text); line-height: 1.5; word-break: break-word; }
+        .note-item .note-meta { font-size: 0.68rem; color: var(--text-light); margin-top: 3px; font-weight: 500; }
+        .note-item .note-edit, .note-item .note-del {
+            width: 28px; height: 28px; border-radius: 50%;
+            border: none; color: #fff; font-size: 11px;
+            cursor: pointer; flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08); transition: 0.2s;
         }
-        .note-item .note-text {
-            font-size: 0.88rem;
-            font-weight: 500;
-            color: var(--text);
-            line-height: 1.5;
-            word-break: break-word;
-        }
-        .note-item .note-meta {
-            font-size: 0.68rem;
-            color: var(--text-light);
-            margin-top: 3px;
-            font-weight: 500;
-        }
-        .note-item .note-edit,
-        .note-item .note-del {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            border: none;
-            color: #fff;
-            font-size: 11px;
-            cursor: pointer;
-            flex-shrink: 0;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-            transition: 0.2s;
-        }
-        .note-item .note-edit {
-            background: var(--tab4-color);
-        }
-        .note-item .note-edit:hover {
-            background: #0B7C72;
-            transform: scale(1.08);
-        }
-        .note-item .note-del {
-            background: #FF5252;
-        }
-        .note-item .note-del:hover {
-            background: #d32f2f;
-            transform: scale(1.08);
-        }
+        .note-item .note-edit { background: var(--tab4-color); }
+        .note-item .note-edit:hover { background: #0B7C72; transform: scale(1.08); }
+        .note-item .note-del { background: #FF5252; }
+        .note-item .note-del:hover { background: #d32f2f; transform: scale(1.08); }
         .empty-note {
-            text-align: center;
-            padding: 16px 12px;
-            font-size: 0.82rem;
-            color: var(--text-light);
-            border: 1px dashed var(--border);
-            border-radius: 10px;
+            text-align: center; padding: 16px 12px;
+            font-size: 0.82rem; color: var(--text-light);
+            border: 1px dashed var(--border); border-radius: 10px;
             background: #FFFDFB;
         }
 
         .fuel-info-note {
-            text-align: center;
-            padding: 10px 16px;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-            background: #FFFDFB;
+            text-align: center; padding: 10px 16px;
+            font-size: 0.8rem; color: var(--text-secondary);
+            font-weight: 500; background: #FFFDFB;
             border-radius: var(--radius-sm);
             border: 1px dashed #FDE8D0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
         }
-        .fuel-info-note i {
-            color: #F59E0B;
-            font-size: 14px;
-        }
+        .fuel-info-note i { color: #F59E0B; font-size: 14px; }
 
         .toast {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
+            position: fixed; bottom: 24px; left: 50%;
             transform: translateX(-50%) translateY(120px);
-            background: #1A1A2E;
-            color: #fff;
-            padding: 12px 22px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            z-index: 1000;
+            background: #1A1A2E; color: #fff;
+            padding: 12px 22px; border-radius: 30px;
+            font-weight: 600; font-size: 0.9rem; z-index: 1000;
             pointer-events: none;
             transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
             letter-spacing: 0.2px;
         }
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
 
         .install-banner {
-            display: none;
-            background: #1A1A2E;
-            color: #fff;
-            padding: 12px 18px;
-            border-radius: var(--radius);
-            text-align: center;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            gap: 10px;
-            align-items: center;
-            justify-content: center;
+            display: none; background: #1A1A2E; color: #fff;
+            padding: 12px 18px; border-radius: var(--radius);
+            text-align: center; font-weight: 600; font-size: 0.9rem;
+            cursor: pointer; gap: 10px;
+            align-items: center; justify-content: center;
             transition: var(--transition);
         }
-        .install-banner.show {
-            display: flex;
-        }
-        .install-banner:hover {
-            background: #2A2A3E;
-        }
-        .install-banner i {
-            font-size: 18px;
-        }
+        .install-banner.show { display: flex; }
+        .install-banner:hover { background: #2A2A3E; }
+        .install-banner i { font-size: 18px; }
 
-        .clear-section {
-            text-align: center;
-            padding: 4px 0;
-        }
+        .clear-section { text-align: center; padding: 4px 0; }
 
-        /* ⭐ Master controls section */
         .master-card {
             border-left: 5px solid #DC2626;
             background: linear-gradient(135deg, #FFFFFF 0%, #FEF7F7 100%);
         }
-        .master-card .card-header .card-icon {
-            background: #FEE2E2;
-            color: #DC2626;
-        }
-        .master-card .card-header .badge {
-            background: #FEE2E2;
-            color: #991B1B;
-        }
+        .master-card .card-header .card-icon { background: #FEE2E2; color: #DC2626; }
+        .master-card .card-header .badge { background: #FEE2E2; color: #991B1B; }
         .btn-master-clear {
             width: 100%;
             background: linear-gradient(135deg, #DC2626 0%, #B91C1C 50%, #991B1B 100%);
-            color: #fff;
-            font-weight: 700;
-            font-size: 0.95rem;
-            padding: 14px 20px;
-            border-radius: var(--radius);
+            color: #fff; font-weight: 700; font-size: 0.95rem;
+            padding: 14px 20px; border-radius: var(--radius);
             box-shadow: 0 6px 20px rgba(220, 38, 38, 0.30);
-            letter-spacing: 0.3px;
-            border: 2px solid #7F1D1D;
-            transition: var(--transition);
-            margin-top: 12px;
+            letter-spacing: 0.3px; border: 2px solid #7F1D1D;
+            transition: var(--transition); margin-top: 12px;
         }
         .btn-master-clear:hover {
             background: linear-gradient(135deg, #B91C1C 0%, #991B1B 50%, #7F1D1D 100%);
             box-shadow: 0 10px 28px rgba(220, 38, 38, 0.45);
             transform: translateY(-1px);
         }
-        .btn-master-clear:active {
-            transform: scale(0.98);
-            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
-        }
-        .btn-master-clear i {
-            font-size: 1.1rem;
-        }
+        .btn-master-clear:active { transform: scale(0.98); box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25); }
+        .btn-master-clear i { font-size: 1.1rem; }
 
         .app-footer {
-            text-align: center;
-            padding: 16px 8px 4px;
-            color: var(--text-light);
-            font-size: 0.78rem;
-            line-height: 1.7;
+            text-align: center; padding: 16px 8px 4px;
+            color: var(--text-light); font-size: 0.78rem; line-height: 1.7;
         }
-        .app-footer strong {
-            color: var(--text-secondary);
-            font-weight: 600;
-        }
+        .app-footer strong { color: var(--text-secondary); font-weight: 600; }
         .app-footer .footer-dot {
-            display: inline-block;
-            width: 5px;
-            height: 5px;
-            background: var(--primary);
-            border-radius: 50%;
-            margin: 0 6px;
-            vertical-align: middle;
+            display: inline-block; width: 5px; height: 5px;
+            background: var(--primary); border-radius: 50%;
+            margin: 0 6px; vertical-align: middle;
             animation: dotBlink 2s ease-in-out infinite;
         }
         @keyframes dotBlink {
-            0%,
-            100% {
-                opacity: 0.4;
-            }
-            50% {
-                opacity: 1;
-            }
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
         }
 
-        /* ============================================================
-                   RESPONSIVE
-                   ============================================================ */
         @media (max-width: 480px) {
-            .app-container {
-                gap: 12px;
-                padding-bottom: 14px;
-            }
-            .card {
-                padding: 14px 14px;
-                border-radius: var(--radius);
-            }
-            .app-header h1 {
-                font-size: 1.3rem;
-            }
-            .app-header .logo-icon {
-                width: 50px;
-                height: 50px;
-                font-size: 24px;
-                border-radius: 16px;
-            }
-            .form-group input {
-                padding: 10px 12px;
-                font-size: 0.95rem;
-            }
-            .input-with-icon input {
-                padding-left: 36px;
-            }
-            .btn-calculate {
-                font-size: 1rem;
-                padding: 14px 18px;
-            }
-            .form-row {
-                gap: 8px;
-            }
-            .form-group {
-                min-width: 100px;
-                margin-bottom: 6px;
-            }
-            .form-group.full-width {
-                min-width: 100%;
-            }
-            .form-group label {
-                font-size: 0.7rem;
-            }
+            .app-container { gap: 12px; padding-bottom: 14px; }
+            .card { padding: 14px 14px; border-radius: var(--radius); }
+            .app-header h1 { font-size: 1.3rem; }
+            .app-header .logo-icon { width: 50px; height: 50px; font-size: 24px; border-radius: 16px; }
+            .form-group input { padding: 10px 12px; font-size: 0.95rem; }
+            .input-with-icon input { padding-left: 36px; }
+            .btn-calculate { font-size: 1rem; padding: 14px 18px; }
+            .form-row { gap: 8px; }
+            .form-group { min-width: 100px; margin-bottom: 6px; }
+            .form-group.full-width { min-width: 100%; }
+            .form-group label { font-size: 0.7rem; }
             .tab-btn {
-                flex-direction: column;
-                gap: 3px;
-                font-size: 0.62rem;
-                padding: 8px 2px;
-                white-space: normal;
-                line-height: 1.2;
-                text-align: center;
+                flex-direction: column; gap: 3px;
+                font-size: 0.62rem; padding: 8px 2px;
+                white-space: normal; line-height: 1.2; text-align: center;
             }
-            .tab-btn i {
-                font-size: 0.8rem;
-            }
-            .fuel-result-box .big-number {
-                font-size: 1.7rem;
-            }
-            .fuel-result-box .fuel-row .fuel-item .num {
-                font-size: 1.2rem;
-            }
-            .result-row.net-profit-highlight .result-value {
-                font-size: 1.05rem;
-            }
-            .result-row.net-profit-highlight {
-                padding: 10px 12px;
-            }
-            table tbody td {
-                font-size: 0.75rem;
-                padding: 8px 4px;
-            }
-            table thead th {
-                font-size: 0.65rem;
-                padding: 8px 4px;
-            }
-            .summary-box .sum-item .num {
-                font-size: 0.95rem;
-            }
-            .summary-box .sum-item .lbl {
-                font-size: 0.6rem;
-            }
-            .oil-table .note-cell {
-                max-width: 70px;
-                font-size: 0.68rem;
-            }
-            .btn-master-clear {
-                font-size: 0.85rem;
-                padding: 12px 16px;
-            }
+            .tab-btn i { font-size: 0.8rem; }
+            .result-row.net-profit-highlight .result-value { font-size: 1.05rem; }
+            .result-row.net-profit-highlight { padding: 10px 12px; }
+            table tbody td { font-size: 0.75rem; padding: 8px 4px; }
+            table thead th { font-size: 0.65rem; padding: 8px 4px; }
+            .summary-box .sum-item .num { font-size: 0.95rem; }
+            .summary-box .sum-item .lbl { font-size: 0.6rem; }
+            .oil-table .note-cell { max-width: 70px; font-size: 0.68rem; }
+            .btn-master-clear { font-size: 0.85rem; padding: 12px 16px; }
+            .meter-box { padding: 10px 12px; min-width: 110px; }
+            .meter-box.display .meter-value { font-size: 1.15rem; }
+            .meter-box input { font-size: 0.95rem; padding: 8px 10px; }
         }
 
         @media (min-width: 481px) and (max-width: 640px) {
-            .form-group {
-                min-width: 120px;
-            }
-            .form-row {
-                gap: 10px;
-            }
-            .tab-btn {
-                font-size: 0.72rem;
-                padding: 10px 4px;
-            }
+            .form-group { min-width: 120px; }
+            .form-row { gap: 10px; }
+            .tab-btn { font-size: 0.72rem; padding: 10px 4px; }
         }
 
         @media (min-width: 768px) {
-            body {
-                padding: 24px;
-                align-items: center;
-            }
-            .app-container {
-                max-width: 680px;
-                gap: 16px;
-            }
-            .card {
-                padding: 22px 26px;
-            }
-            .form-group {
-                min-width: 140px;
-            }
-            .tab-btn {
-                font-size: 0.9rem;
-                padding: 14px 12px;
-            }
-            .fuel-result-box .big-number {
-                font-size: 2.6rem;
-            }
-            .fuel-result-box .fuel-row .fuel-item .num {
-                font-size: 1.8rem;
-            }
+            body { padding: 24px; align-items: center; }
+            .app-container { max-width: 680px; gap: 16px; }
+            .card { padding: 22px 26px; }
+            .form-group { min-width: 140px; }
+            .tab-btn { font-size: 0.9rem; padding: 14px 12px; }
         }
     </style>
 </head>
@@ -1340,7 +749,6 @@
                 </div>
             </div>
 
-            <!-- Sirf Clear button (Backup/Restore hataya) -->
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon" style="background:#FFF3E0;color:#FF6F00;"><i class="fas fa-eraser"></i></div>
@@ -1352,8 +760,10 @@
             </div>
         </div>
 
-        <!-- ==================== TAB 3 ==================== -->
+        <!-- ==================== TAB 3 — FUEL (NEW ORDER) ==================== -->
         <div class="tab-content tab-fuel" id="tab3">
+
+            <!-- 1) Fuel Settings -->
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon" style="background:var(--tab3-bg);color:var(--tab3-color);"><i class="fas fa-sliders-h"></i></div>
@@ -1378,6 +788,7 @@
                 </div>
             </div>
 
+            <!-- 2) Petrol Fill-up -->
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon" style="background:var(--tab3-bg);color:var(--tab3-color);"><i class="fas fa-plus-circle"></i></div>
@@ -1392,32 +803,33 @@
                         <label>💰 Amount Paid (Rs.)</label>
                         <div class="input-with-icon">
                             <i class="fas fa-rupee-sign input-icon" style="color:var(--tab3-color);"></i>
-                            <input type="number" id="fuelAmount" placeholder="Kitne Rs. diye?" min="1" step="1" style="border-color:rgba(79,70,229,0.2);" oninput="updateFuelLive()">
+                            <input type="number" id="fuelAmount" placeholder="Kitne Rs. diye?" min="1" step="1" style="border-color:rgba(79,70,229,0.2);">
                         </div>
                     </div>
                 </div>
                 <button onclick="addFuelRecord()" class="btn btn-fuel-add" id="fuelAddUpdateBtn">Add Record</button>
+            </div>
 
-                <div class="fuel-result-box" id="fuelLiveResult">
-                    <div class="label">📊 Your Fuel Calculation</div>
-                    <div class="fuel-row">
-                        <div class="fuel-item">
-                            <div class="num" id="fuelLitersDisplay">—</div>
-                            <div class="lbl">Liters</div>
-                        </div>
-                        <div class="fuel-item">
-                            <div class="num" id="fuelRangeDisplay">—</div>
-                            <div class="lbl">Expected KM</div>
-                        </div>
-                        <div class="fuel-item">
-                            <div class="num" id="fuelCostPerKMDisplay">—</div>
-                            <div class="lbl">Rs./KM</div>
-                        </div>
+            <!-- 3) ⭐ Meter + Expected KM (ek row, 2 boxes) -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background:var(--tab3-bg);color:var(--tab3-color);"><i class="fas fa-tachometer-alt"></i></div>
+                    <h3>🎯 Meter + Expected KM</h3>
+                    <span class="badge" style="background:var(--tab3-bg);color:var(--tab3-color);">Total</span>
+                </div>
+                <div class="meter-row">
+                    <div class="meter-box">
+                        <label>🔢 Aap Ka Meter</label>
+                        <input type="number" id="meterBase" placeholder="e.g. 1500" min="0" step="1" oninput="updateMeterTotal()">
                     </div>
-                    <div class="sub-detail" id="fuelCalcDetail">Amount ÷ Price = Liters &nbsp;•&nbsp; Liters × Average = KM</div>
+                    <div class="meter-box display">
+                        <label>📊 Meter + Expected</label>
+                        <div class="meter-value" id="meterPlusExpectedDisplay">0 KM</div>
+                    </div>
                 </div>
             </div>
 
+            <!-- 4) Fill-up History -->
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon" style="background:var(--tab3-bg);color:var(--tab3-color);"><i class="fas fa-history"></i></div>
@@ -1455,7 +867,7 @@
                 </div>
             </div>
 
-            <!-- Sirf Clear button -->
+            <!-- 5) Clear Records -->
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon" style="background:#EDE7F6;color:#5E35B1;"><i class="fas fa-eraser"></i></div>
@@ -1543,7 +955,6 @@
                 <div class="notes-list" id="notesList"></div>
             </div>
 
-            <!-- Sirf Clear button -->
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon" style="background:#E0F2F1;color:#0D9488;"><i class="fas fa-eraser"></i></div>
@@ -1560,7 +971,7 @@
             </div>
         </div>
 
-        <!-- ⭐ MASTER CONTROLS — Backup All / Restore All / Master Clear -->
+        <!-- ⭐ MASTER CONTROLS -->
         <div class="card master-card">
             <div class="card-header">
                 <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
@@ -1591,9 +1002,6 @@
         (function() {
             'use strict';
 
-            // ─────────────────────────────────────────────
-            //  TOAST
-            // ─────────────────────────────────────────────
             const toastEl = document.getElementById('toast');
             let toastTimer;
 
@@ -1604,9 +1012,6 @@
                 toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
             }
 
-            // ─────────────────────────────────────────────
-            //  TABS
-            // ─────────────────────────────────────────────
             function switchTab(tabId) {
                 document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
                 document.getElementById(tabId).classList.add('active');
@@ -1617,13 +1022,10 @@
                 content.style.animation = 'none';
                 content.offsetHeight;
                 content.style.animation = 'fadeSlideIn 0.35s ease-out';
-                if (tabId === 'tab3') updateFuelLive();
             }
             window.switchTab = switchTab;
 
-            // ─────────────────────────────────────────────
-            //  PWA INSTALL
-            // ─────────────────────────────────────────────
+            // PWA INSTALL
             let deferredPrompt = null;
             const installBanner = document.getElementById('installBanner');
 
@@ -1657,9 +1059,7 @@
                 showToast('🎉 App successfully installed!');
             });
 
-            // ─────────────────────────────────────────────
-            //  SHARED HELPERS
-            // ─────────────────────────────────────────────
+            // HELPERS
             function formatPKR(val) {
                 return 'Rs. ' + Math.abs(val).toLocaleString('en-PK', {
                     minimumFractionDigits: 2,
@@ -1683,9 +1083,7 @@
                 return String(str).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
             }
 
-            // ─────────────────────────────────────────────
-            //  TAB 1 — RIDE PROFIT
-            // ─────────────────────────────────────────────
+            // TAB 1 — RIDE PROFIT
             const RIDE_KEYS = {
                 bikeAvg: 'rpc_v3_bikeAverage',
                 petrol: 'rpc_v3_petrolPrice',
@@ -1727,7 +1125,6 @@
                         showToast(msgs[idx]);
                         if (key === RIDE_KEYS.bikeAvg) document.getElementById('fuelBikeAvg').value = v;
                         if (key === RIDE_KEYS.petrol) document.getElementById('fuelPetrolPrice').value = v;
-                        if (document.getElementById('tab3').classList.contains('active')) updateFuelLive();
                     }
                 });
                 inp.addEventListener('keydown', function(e) {
@@ -1739,7 +1136,6 @@
                             showToast(msgs[idx]);
                             if (key === RIDE_KEYS.bikeAvg) document.getElementById('fuelBikeAvg').value = v;
                             if (key === RIDE_KEYS.petrol) document.getElementById('fuelPetrolPrice').value = v;
-                            if (document.getElementById('tab3').classList.contains('active')) updateFuelLive();
                         }
                     }
                 });
@@ -1766,8 +1162,7 @@
                         if (isNaN(v) || v <= 0) {
                             inp.style.borderColor = '#EF4444';
                             inp.style.backgroundColor = '#FFF5F5';
-                            setTimeout(() => { inp.style.borderColor = '';
-                                inp.style.backgroundColor = ''; }, 2000);
+                            setTimeout(() => { inp.style.borderColor = ''; inp.style.backgroundColor = ''; }, 2000);
                         }
                     });
                     return;
@@ -1891,14 +1286,10 @@
                 showToast('🗑️ Sab data clear ho gaya!');
             };
 
-            distInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault();
-                    fareInput.focus(); } });
-            fareInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault();
-                    calculateProfit(); } });
+            distInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); fareInput.focus(); } });
+            fareInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); calculateProfit(); } });
 
-            // ─────────────────────────────────────────────
-            //  TAB 2 — KM TRACKING
-            // ─────────────────────────────────────────────
+            // TAB 2 — KM TRACKING
             let kmRecords = JSON.parse(localStorage.getItem('meterRecords')) || [];
             let kmEditIndex = null;
 
@@ -1987,10 +1378,9 @@
                 showToast('🗑️ Sare records delete kar diye gaye.');
             };
 
-            // ─────────────────────────────────────────────
-            //  TAB 3 — FUEL RANGE
-            // ─────────────────────────────────────────────
+            // TAB 3 — FUEL RANGE
             const FUEL_KEYS = { records: 'fuelRecords_v2' };
+            const METER_KEY = 'fuelMeterBase_v1';
 
             let fuelRecords = JSON.parse(localStorage.getItem(FUEL_KEYS.records)) || [];
             let fuelEditIndex = null;
@@ -2002,10 +1392,7 @@
             const fuelAddBtn = document.getElementById('fuelAddUpdateBtn');
             const fuelTbody = document.getElementById('fuelTbody');
             const fuelCount = document.getElementById('fuelCount');
-            const fuelLitersDisplay = document.getElementById('fuelLitersDisplay');
-            const fuelRangeDisplay = document.getElementById('fuelRangeDisplay');
-            const fuelCostPerKMDisplay = document.getElementById('fuelCostPerKMDisplay');
-            const fuelCalcDetail = document.getElementById('fuelCalcDetail');
+            const meterBaseInput = document.getElementById('meterBase');
 
             function loadFuelSettings() {
                 const avg = localStorage.getItem(RIDE_KEYS.bikeAvg);
@@ -2014,6 +1401,9 @@
                 else fuelAvg.value = '';
                 if (price && !isNaN(price) && parseFloat(price) > 0) fuelPrice.value = parseFloat(price);
                 else fuelPrice.value = '';
+                const mb = localStorage.getItem(METER_KEY);
+                if (mb !== null && !isNaN(mb) && parseFloat(mb) >= 0) meterBaseInput.value = parseFloat(mb);
+                else meterBaseInput.value = '';
             }
 
             function saveFuelSetting(key, val) {
@@ -2030,7 +1420,6 @@
                         showToast(msgs[idx]);
                         if (key === RIDE_KEYS.bikeAvg) document.getElementById('bikeAverage').value = v;
                         if (key === RIDE_KEYS.petrol) document.getElementById('petrolPrice').value = v;
-                        updateFuelLive();
                     }
                 });
                 inp.addEventListener('keydown', function(e) {
@@ -2042,7 +1431,6 @@
                             showToast(msgs[idx]);
                             if (key === RIDE_KEYS.bikeAvg) document.getElementById('bikeAverage').value = v;
                             if (key === RIDE_KEYS.petrol) document.getElementById('petrolPrice').value = v;
-                            updateFuelLive();
                         }
                     }
                 });
@@ -2052,27 +1440,37 @@
                 localStorage.setItem(FUEL_KEYS.records, JSON.stringify(fuelRecords));
             }
 
-            function updateFuelLive() {
-                const amount = parseFloat(fuelAmount.value);
-                const avg = parseFloat(fuelAvg.value);
-                const price = parseFloat(fuelPrice.value);
+            // ⭐ Meter + Expected update (sirf 2 boxes)
+            function updateMeterTotal() {
+                const base = parseFloat(meterBaseInput.value);
+                const baseVal = !isNaN(base) && base >= 0 ? base : 0;
 
-                if (!isNaN(amount) && amount > 0 && !isNaN(avg) && avg > 0 && !isNaN(price) && price > 0) {
-                    const liters = amount / price;
-                    const expectedKM = liters * avg;
-                    const costPerKM = amount / expectedKM;
-
-                    fuelLitersDisplay.textContent = liters.toFixed(2) + ' L';
-                    fuelRangeDisplay.textContent = expectedKM.toFixed(1) + ' KM';
-                    fuelCostPerKMDisplay.textContent = formatPKR(costPerKM);
-                    fuelCalcDetail.textContent = `${formatPKR(amount)} ÷ ${price} = ${liters.toFixed(2)}L  •  ${liters.toFixed(2)}L × ${avg} = ${expectedKM.toFixed(1)} KM`;
+                if (!isNaN(base) && base >= 0) {
+                    localStorage.setItem(METER_KEY, base);
                 } else {
-                    fuelLitersDisplay.textContent = '—';
-                    fuelRangeDisplay.textContent = '—';
-                    fuelCostPerKMDisplay.textContent = '—';
-                    fuelCalcDetail.textContent = 'Amount ÷ Price = Liters  •  Liters × Average = KM';
+                    localStorage.removeItem(METER_KEY);
+                }
+
+                let totalExpected = 0;
+                fuelRecords.forEach(rec => {
+                    const amt = Number(rec.amount) || 0;
+                    const prc = Number(rec.price) || 0;
+                    const avg = Number(rec.average) || 0;
+                    if (prc > 0 && amt > 0) {
+                        totalExpected += (amt / prc) * avg;
+                    }
+                });
+
+                const displayEl = document.getElementById('meterPlusExpectedDisplay');
+                const total = baseVal + totalExpected;
+                displayEl.textContent = total.toLocaleString('en-PK', { maximumFractionDigits: 1 }) + ' KM';
+                if (baseVal === 0 && totalExpected === 0) {
+                    displayEl.classList.add('meter-value-empty');
+                } else {
+                    displayEl.classList.remove('meter-value-empty');
                 }
             }
+            window.updateMeterTotal = updateMeterTotal;
 
             function renderFuel() {
                 fuelTbody.innerHTML = '';
@@ -2112,6 +1510,8 @@
                 document.getElementById('fuelTotalAmountDisplay').textContent = formatPKR(totalAmount);
                 document.getElementById('fuelTotalLitersDisplay').textContent = totalLiters.toFixed(2) + ' L';
                 document.getElementById('fuelTotalKmDisplay').textContent = totalExpectedKm.toFixed(1) + ' KM';
+
+                updateMeterTotal();
             }
 
             window.addFuelRecord = function() {
@@ -2141,7 +1541,6 @@
                 fuelAmount.value = '';
                 fuelAddBtn.textContent = 'Add Record';
                 fuelEditIndex = null;
-                updateFuelLive();
             }
 
             window.editFuel = function(idx) {
@@ -2152,7 +1551,6 @@
                 fuelPrice.value = rec.price;
                 fuelAddBtn.textContent = 'Update Record';
                 fuelEditIndex = idx;
-                updateFuelLive();
                 document.querySelector('#tab3 .card').scrollIntoView({ behavior: 'smooth' });
             };
 
@@ -2176,13 +1574,10 @@
             };
 
             fuelAmount.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') { e.preventDefault();
-                    addFuelRecord(); }
+                if (e.key === 'Enter') { e.preventDefault(); addFuelRecord(); }
             });
 
-            // ─────────────────────────────────────────────
-            //  TAB 4 — BIKE INFO (Oil + Notes)
-            // ─────────────────────────────────────────────
+            // TAB 4 — BIKE INFO
             const BIKE_KEYS = {
                 oil: 'bikeOilRecords_v2',
                 notes: 'bikeNotes_v1'
@@ -2200,7 +1595,7 @@
                 }
                 return rec;
             });
-            try { localStorage.setItem(BIKE_KEYS.oil, JSON.stringify(oilRecords)); } catch(e) {}
+            try { localStorage.setItem(BIKE_KEYS.oil, JSON.stringify(oilRecords)); } catch (e) {}
 
             const oilDate = document.getElementById('oilDate');
             const oilStart = document.getElementById('oilStart');
@@ -2214,13 +1609,8 @@
             const noteCount = document.getElementById('noteCount');
             const noteAddBtn = document.getElementById('noteAddUpdateBtn');
 
-            function saveOil() {
-                localStorage.setItem(BIKE_KEYS.oil, JSON.stringify(oilRecords));
-            }
-
-            function saveNotes() {
-                localStorage.setItem(BIKE_KEYS.notes, JSON.stringify(bikeNotes));
-            }
+            function saveOil() { localStorage.setItem(BIKE_KEYS.oil, JSON.stringify(oilRecords)); }
+            function saveNotes() { localStorage.setItem(BIKE_KEYS.notes, JSON.stringify(bikeNotes)); }
 
             function renderOil() {
                 oilTbody.innerHTML = '';
@@ -2366,11 +1756,8 @@
             }
 
             window.deleteNote = function(idx) {
-                if (noteEditIndex === idx) {
-                    resetNoteForm();
-                } else if (noteEditIndex !== null && idx < noteEditIndex) {
-                    noteEditIndex--;
-                }
+                if (noteEditIndex === idx) { resetNoteForm(); }
+                else if (noteEditIndex !== null && idx < noteEditIndex) { noteEditIndex--; }
                 bikeNotes.splice(idx, 1);
                 saveNotes();
                 renderNotes();
@@ -2391,9 +1778,7 @@
                 showToast('🗑️ Sare bike records delete kar diye gaye.');
             };
 
-            // ─────────────────────────────────────────────
-            //  ⭐ MASTER BACKUP (sab kuch ek JSON mein)
-            // ─────────────────────────────────────────────
+            // MASTER BACKUP
             window.exportAllJSON = function() {
                 const data = {
                     app: 'Bike Tools',
@@ -2406,6 +1791,7 @@
                     },
                     kmRecords: kmRecords,
                     fuelRecords: fuelRecords,
+                    fuelMeterBase: localStorage.getItem(METER_KEY) || '',
                     oilRecords: oilRecords,
                     bikeNotes: bikeNotes
                 };
@@ -2418,9 +1804,7 @@
                 showToast('📤 Full backup downloaded!');
             };
 
-            // ─────────────────────────────────────────────
-            //  ⭐ MASTER RESTORE (sab kuch ek JSON se)
-            // ─────────────────────────────────────────────
+            // MASTER RESTORE
             window.importAllJSON = function() {
                 const inp = document.getElementById('allFileInput');
                 inp.click();
@@ -2435,7 +1819,6 @@
 
                             if (!confirm('⚠️ Restore All\n\nKya aap WAQAI poora data restore karna chahte hain?\n\nMojooda sab data (profit settings, KM, fuel, oil, notes) is backup se replace ho jayega.')) return;
 
-                            // Profit settings
                             if (data.profitSettings) {
                                 if (data.profitSettings.bikeAverage !== undefined && data.profitSettings.bikeAverage !== '') {
                                     localStorage.setItem(RIDE_KEYS.bikeAvg, data.profitSettings.bikeAverage);
@@ -2448,19 +1831,24 @@
                                 }
                             }
 
-                            // KM records
                             if (Array.isArray(data.kmRecords)) {
                                 kmRecords = data.kmRecords;
                                 saveKM();
                             }
 
-                            // Fuel records
                             if (Array.isArray(data.fuelRecords)) {
                                 fuelRecords = data.fuelRecords;
                                 saveFuelRecords();
                             }
 
-                            // Oil records (purana format migrate)
+                            if (data.fuelMeterBase !== undefined && data.fuelMeterBase !== '' && !isNaN(data.fuelMeterBase)) {
+                                localStorage.setItem(METER_KEY, data.fuelMeterBase);
+                                meterBaseInput.value = parseFloat(data.fuelMeterBase);
+                            } else if (data.fuelMeterBase === '' || data.fuelMeterBase === null) {
+                                localStorage.removeItem(METER_KEY);
+                                meterBaseInput.value = '';
+                            }
+
                             if (Array.isArray(data.oilRecords)) {
                                 oilRecords = data.oilRecords.map(rec => {
                                     if (rec.start === undefined && rec.km !== undefined) {
@@ -2472,13 +1860,11 @@
                                 saveOil();
                             }
 
-                            // Notes
                             if (Array.isArray(data.bikeNotes)) {
                                 bikeNotes = data.bikeNotes;
                                 saveNotes();
                             }
 
-                            // Reload UI everywhere
                             loadRideSettings();
                             fuelAvg.value = localStorage.getItem(RIDE_KEYS.bikeAvg) || '';
                             fuelPrice.value = localStorage.getItem(RIDE_KEYS.petrol) || '';
@@ -2488,7 +1874,6 @@
                             resetNoteForm();
                             renderKM();
                             renderFuel();
-                            updateFuelLive();
                             renderOil();
                             renderNotes();
 
@@ -2502,11 +1887,9 @@
                 };
             };
 
-            // ─────────────────────────────────────────────
-            //  ⭐ MASTER CLEAR (sab kuch delete)
-            // ─────────────────────────────────────────────
+            // MASTER CLEAR
             window.masterClear = function() {
-                if (!confirm('⚠️ MASTER CLEAR\n\nKya aap WAQAI poora data delete karna chahte hain?\n\nYe SAB clear hoga:\n• Profit settings (avg, price, commission)\n• KM Track records\n• Fuel Range records\n• Oil Change records\n• Bike Notes\n\n⚠️ Ye action UNDO NAHI ho sakta!')) return;
+                if (!confirm('⚠️ MASTER CLEAR\n\nKya aap WAQAI poora data delete karna chahte hain?\n\nYe SAB clear hoga:\n• Profit settings (avg, price, commission)\n• KM Track records\n• Fuel Range records\n• Meter Base\n• Oil Change records\n• Bike Notes\n\n⚠️ Ye action UNDO NAHI ho sakta!')) return;
                 if (!confirm('🚨 FINAL CONFIRMATION\n\nAakhri baar pooch rahe hain — SAB KUCH delete ho jayega.\n\nConfirm karein?')) return;
 
                 localStorage.removeItem(RIDE_KEYS.bikeAvg);
@@ -2514,6 +1897,7 @@
                 localStorage.removeItem(RIDE_KEYS.commission);
                 localStorage.removeItem('meterRecords');
                 localStorage.removeItem(FUEL_KEYS.records);
+                localStorage.removeItem(METER_KEY);
                 localStorage.removeItem(BIKE_KEYS.oil);
                 localStorage.removeItem(BIKE_KEYS.notes);
 
@@ -2547,6 +1931,7 @@
 
                 fuelAvg.value = '';
                 fuelPrice.value = '';
+                meterBaseInput.value = '';
 
                 resetKMForm();
                 resetFuelForm();
@@ -2555,7 +1940,6 @@
 
                 renderKM();
                 renderFuel();
-                updateFuelLive();
                 renderOil();
                 renderNotes();
 
@@ -2564,9 +1948,7 @@
                 showToast('🚨 Poora data clear ho gaya!');
             };
 
-            // ─────────────────────────────────────────────
-            //  INIT
-            // ─────────────────────────────────────────────
+            // INIT
             function init() {
                 loadRideSettings();
                 if (!commissionInput.value || isNaN(parseFloat(commissionInput.value))) commissionInput.value = 11;
@@ -2577,7 +1959,6 @@
                 loadFuelSettings();
                 setToday(fuelDate);
                 renderFuel();
-                updateFuelLive();
 
                 setToday(oilDate);
                 renderOil();
@@ -2586,7 +1967,6 @@
                 if (!bikeAvgInput.value) setTimeout(() => bikeAvgInput.focus(), 500);
 
                 console.log('🏍️ Bike Tools v3.0 PWA loaded!');
-                console.log('📌 Tabs: Ride Profit | KM Tracking | Fuel Range | Bike Info');
             }
 
             if ('serviceWorker' in navigator) {
