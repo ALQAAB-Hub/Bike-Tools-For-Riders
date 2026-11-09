@@ -1,5 +1,5 @@
 // Service Worker for Bike Tools PWA
-const CACHE_NAME = 'bike-tools-cache-v3.7';
+const CACHE_NAME = 'bike-tools-cache-v3.9';
 const urlsToCache = [
     './',
     './index.html',
